@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.base.HeaderText;
 import nl.han.student.HJMPoelen.entities.base.KillBoxEntities.EnemyEntity;
+import nl.han.student.HJMPoelen.entities.base.KillBoxEntities.RocketEntity;
 
 public class GameScene extends DynamicScene{
     protected HAN_Menace hanMenace;
@@ -25,6 +26,7 @@ public class GameScene extends DynamicScene{
     @Override
     public void setupEntities() {
         /// ALL PLATFORMS ENEMIES ETC.
+       // RocketEntity rocket = new RocketEntity();
         EnemyEntity enemy = new EnemyEntity(new Coordinate2D(getWidth()/4,getHeight() / 4), new Size(20,20));
         var titelText = new HeaderText(
                 new Coordinate2D( getWidth()/2 , getHeight() / 3),
@@ -32,6 +34,7 @@ public class GameScene extends DynamicScene{
         );
         addEntity(titelText);
         addEntity(enemy);
+        //addEntity(rocket);
         enemy.notifyBoundaryTouching(SceneBorder.LEFT);
         enemy.notifyBoundaryTouching(SceneBorder.RIGHT);
     }
