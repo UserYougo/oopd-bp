@@ -1,35 +1,37 @@
 package nl.han.student.HJMPoelen.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.scenes.DynamicScene;
+import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.base.HeaderText;
-import nl.han.student.HJMPoelen.entities.base.PlayerEntity.Player;
+import nl.han.student.HJMPoelen.entities.base.buttons.RestartButton;
+import nl.han.student.HJMPoelen.entities.base.buttons.StartButton;
 
-public class GameScene extends DynamicScene{
+public class LostScene extends StaticScene {
     protected HAN_Menace hanMenace;
 
-    public GameScene(HAN_Menace hanMenace){
+    public LostScene(HAN_Menace hanMenace) {
         this.hanMenace = hanMenace;
     }
 
     @Override
     public void setupScene() {
-        setBackgroundColor(Color.GRAY);
+        setBackgroundColor(Color.LIGHTGRAY);
     }
 
     @Override
     public void setupEntities() {
-        /// ALL PLATFORMS ENEMIES ETC.
-        Player player = new Player(new Coordinate2D(getWidth()/8, getHeight()/8), new Size(20, 20), hanMenace );
         var titelText = new HeaderText(
                 new Coordinate2D( getWidth()/2 , getHeight() / 3),
-                "GAMESCENE"
+                "Dare to try again?"
         );
         addEntity(titelText);
-        addEntity(player);
+        var restartButton = new RestartButton(
+                new Coordinate2D(getWidth()/ 2, getHeight()/ 2),
+                hanMenace
+        );
+        addEntity(restartButton);
+
     }
 }
-
