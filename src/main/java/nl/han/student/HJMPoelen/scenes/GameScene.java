@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.base.HeaderText;
 import nl.han.student.HJMPoelen.entities.base.PlayerEntity.Player;
+import nl.han.student.HJMPoelen.entities.base.TestEntities.TestPlatform;
 
 public class GameScene extends DynamicScene{
     protected HAN_Menace hanMenace;
@@ -23,6 +24,7 @@ public class GameScene extends DynamicScene{
     @Override
     public void setupEntities() {
         /// ALL PLATFORMS ENEMIES ETC.
+        TestPlatform testPlatform = new TestPlatform(new Coordinate2D(getWidth()/8 , getHeight() - 200), new Size(500, 10));
         Player player = new Player(new Coordinate2D(getWidth()/8, getHeight()/8), new Size(20, 20), hanMenace );
         var titelText = new HeaderText(
                 new Coordinate2D( getWidth()/2 , getHeight() / 3),
@@ -30,6 +32,7 @@ public class GameScene extends DynamicScene{
         );
         addEntity(titelText);
         addEntity(player);
+        addEntity(testPlatform);
     }
 }
 
