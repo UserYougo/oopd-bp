@@ -3,7 +3,7 @@ module HanMenace {
     requires java.desktop;
     requires javafx.graphics;
     requires jdk.unsupported;
-    requires HanMenace;
+//    requires HanMenace;
 
     exports nl.han.student.HJMPoelen;
 }

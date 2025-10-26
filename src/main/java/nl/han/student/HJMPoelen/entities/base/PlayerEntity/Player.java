@@ -13,43 +13,39 @@ import javafx.scene.input.KeyCode;
 import nl.han.student.HJMPoelen.HAN_Menace;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class Player extends DynamicEllipseEntity implements SceneBorderTouchingWatcher, KeyListener, Newtonian, Collider, Collided {
 
-    protected HAN_Menace hanMenace;
+    private final HAN_Menace hanMenace;
 
     public Player(Coordinate2D initialPosition, Size size, HAN_Menace hanMenace) {
         super(initialPosition, size);
-        this.hanMenace = new HAN_Menace();
+        this.hanMenace = hanMenace;
     }
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.contains(KeyCode.A)) {
-            addToMotion(0.1, 270d);
+            addToMotion(1, 270d);
         } else if (pressedKeys.contains(KeyCode.D)) {
-            addToMotion(0.1, 90d);
+            addToMotion(1, 90d);
         } else if (pressedKeys.contains(KeyCode.W)) {
-            addToMotion(0.1, 360d);
+            addToMotion(1, 180d);
         }
 
     }
 
     @Override
     public void notifyBoundaryTouching(final SceneBorder border) {
-        setSpeed(0);
-
-        if (border == SceneBorder.BOTTOM) { //moet van TOP naar BOTTOM
+        if (border == SceneBorder.BOTTOM) {
+            setSpeed(0);
             hanMenace.setActiveScene(2);
         }
-      //Objects.requireNonNull(border); // dit kan in plaats van de if, weet nog niet waarom
-
     }
 
     @Override
     public void onCollision(List<Collider> list) {
-    // iets van winnen en dood gaan
+    // iets van winnen en dood gaan en winnen indien de 'boss' aanraken
     }
 }
