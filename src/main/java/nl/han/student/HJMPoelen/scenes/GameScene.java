@@ -2,12 +2,16 @@ package nl.han.student.HJMPoelen.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import com.github.hanyaeger.api.scenes.SceneBorder;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.base.HeaderText;
 import nl.han.student.HJMPoelen.entities.base.PlayerEntity.Player;
 import nl.han.student.HJMPoelen.entities.base.TestEntities.TestPlatform;
+import nl.han.student.HJMPoelen.entities.base.KillBoxEntities.EnemyEntity;
+import nl.han.student.HJMPoelen.entities.base.KillBoxEntities.RocketEntity;
 
 public class GameScene extends DynamicScene{
     protected HAN_Menace hanMenace;
