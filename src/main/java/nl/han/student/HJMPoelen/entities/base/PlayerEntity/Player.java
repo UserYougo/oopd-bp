@@ -25,10 +25,10 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
         super(initialPosition, size);
         this.hanMenace = hanMenace;
 
-        setGravityConstant(0.3); //de speler
-        setGravityDirection(360);// valt met deze twee
-
-        setFrictionConstant(0.05);// en vetraagt met deze
+        setGravityConstant(0.3);
+        setGravityDirection(360);
+        // de speler vertraagt steeds op platform, ik kom er maar niet uit.
+        setFrictionConstant(0.05);
     }
 
     @Override
