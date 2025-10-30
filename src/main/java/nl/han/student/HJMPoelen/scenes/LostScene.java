@@ -7,6 +7,7 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.BackHomeButton;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.RestartButton;
 
 import java.util.ArrayList;
@@ -53,11 +54,11 @@ public class LostScene extends StaticScene {
         highscoreText.setFill(Color.MEDIUMVIOLETRED); //willekeurige kleur
         addEntity(highscoreText);
 
-        var restartButton = new RestartButton(
-                new Coordinate2D(getWidth() / 2, getHeight()/ 0.5), hanMenace); // button plekken moet nog ff overna gedacht worden
+        var restartButton = new Button(
+                new Coordinate2D(getWidth() / 2, getHeight()/ 0.5), hanMenace,"try again?", 1); // button plekken moet nog ff overna gedacht worden
         addEntity(restartButton);
 
-        var backHomeButton = new BackHomeButton(new Coordinate2D( getWidth()/ 2, getHeight()/ 0.5), hanMenace);
+        var backHomeButton = new Button(new Coordinate2D( getWidth()/ 2, getHeight()/ 0.5), hanMenace, "Home", 2);
         addEntity(backHomeButton);
     }
 }

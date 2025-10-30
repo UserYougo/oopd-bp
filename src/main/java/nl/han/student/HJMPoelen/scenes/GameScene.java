@@ -8,6 +8,7 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyMovementBoundyHitbox;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketEntity;
+import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.Coin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Hitbox;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
@@ -66,6 +67,18 @@ public class GameScene extends DynamicScene{
 
         RocketEntity rocket1 = new RocketEntity(new Coordinate2D(getWidth()/2, 0), hanMenace);
         addEntity(rocket1);
+        addCoins(layer1Y, layer2Y, layer3Y, layer4Y, layer0y);
+    }
+
+    private void addCoins(double layer1Y, double layer2Y, double layer3Y, double layer4Y, double groundY) {
+        double coinValue = 100;
+        double offsetY = 30;
+
+        addEntity(new Coin(new Coordinate2D(getWidth() / 5, layer1Y - offsetY), (int) coinValue));
+        addEntity(new Coin(new Coordinate2D(getWidth() / 2, layer2Y - offsetY), (int) coinValue));
+        addEntity(new Coin(new Coordinate2D(getWidth() / 3, layer3Y - offsetY), (int) coinValue));
+        addEntity(new Coin(new Coordinate2D(getWidth() / 1.3, layer4Y - offsetY), (int) coinValue));
+
     }
 
     public void createSplitPlatforms(double platformY, double gapX, double gapWidth, double platformThickness) { /// Function to make platform layer with a gap in between

@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.StartButton;
 
 public class TitelScene extends StaticScene {
@@ -27,9 +28,11 @@ public class TitelScene extends StaticScene {
                 "Welcome to HAN_Menace!"
         );
         addEntity(titelText);
-        var startButton = new StartButton(
+        var startButton = new Button(
                 new Coordinate2D(getWidth()/ 2, getHeight()/ 2),
-                hanMenace
+                hanMenace,
+                "start",
+                1
         );
         addEntity(startButton);
 
