@@ -4,9 +4,9 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.base.HeaderText;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 
-import nl.han.student.HJMPoelen.entities.base.buttons.StartButton;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.StartButton;
 
 public class TitelScene extends StaticScene {
      protected HAN_Menace hanMenace;

@@ -1,4 +1,4 @@
-package nl.han.student.HJMPoelen.entities.base.PlayerEntity;
+package nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
@@ -10,7 +10,9 @@ import com.github.hanyaeger.api.entities.impl.DynamicEllipseEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
+import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.base.TestEntities.TestPlatform;
 
 import java.util.List;
@@ -24,11 +26,13 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
     public Player(Coordinate2D initialPosition, Size size, HAN_Menace hanMenace) {
         super(initialPosition, size);
         this.hanMenace = hanMenace;
+        setFill(Color.LIGHTGREEN);
+        setGravityConstant(0.2);
 
-        setGravityConstant(0.3);
-        setGravityDirection(360);
         // de speler vertraagt steeds op platform, ik kom er maar niet uit.
-        setFrictionConstant(0.05);
+        setFrictionConstant(0.01);
+
+        setGravityDirection(360);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
     @Override
     public void onCollision(List<Collider> colliders) {
         for (Collider collider : colliders) {
-            if (collider instanceof TestPlatform platform) {
+            if (collider instanceof Platform platform) {
 
                 double playerBottom = getAnchorLocation().getY() + getHeight();
                 double platformTop = platform.getAnchorLocation().getY();

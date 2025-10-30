@@ -4,10 +4,10 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.base.HeaderText;
-import nl.han.student.HJMPoelen.entities.base.ScoreManager;
-import nl.han.student.HJMPoelen.entities.base.buttons.BackHomeButton;
-import nl.han.student.HJMPoelen.entities.base.buttons.RestartButton;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
+import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.BackHomeButton;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.RestartButton;
 
 import java.util.ArrayList;
 

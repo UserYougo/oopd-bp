@@ -1,9 +1,8 @@
-package nl.han.student.HJMPoelen.entities.base.buttons;
+package nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.baseButton;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
 import com.github.hanyaeger.api.userinput.MouseEnterListener;
 import com.github.hanyaeger.api.userinput.MouseExitListener;

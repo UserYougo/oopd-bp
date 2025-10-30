@@ -8,7 +8,9 @@ import nl.han.student.HJMPoelen.scenes.TitelScene;
 
 
 public class HAN_Menace extends YaegerGame{
+    public static final int TITELSCENE = 0;
     public static final int GAMESCENE = 1;
+    public static final int LOSTSCENE = 2; //change later
 
     public static void main(String[] args) {
         YaegerGame.launch(args);
@@ -20,9 +22,8 @@ public class HAN_Menace extends YaegerGame{
     }
     @Override
     public void setupScenes() {
-        addScene(0, new TitelScene(this));
+        addScene(TITELSCENE, new TitelScene(this));
         addScene(GAMESCENE, new GameScene(this));
-        addScene(2, new LostScene(this));
+        addScene(LOSTSCENE, new LostScene(this));
     }
-
 }

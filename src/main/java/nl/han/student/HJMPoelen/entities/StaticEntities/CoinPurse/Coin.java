@@ -1,11 +1,10 @@
-package nl.han.student.HJMPoelen.entities.base.CoinPurse;
+package nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.CircleEntity;
 import javafx.scene.paint.Color;
-import nl.han.student.HJMPoelen.entities.base.ScoreManager;
 
 import java.util.List;
 

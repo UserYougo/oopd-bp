@@ -1,4 +1,4 @@
-package nl.han.student.HJMPoelen.entities.base;
+package nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse;
 
 import java.util.ArrayList;
 import java.util.Collections;
