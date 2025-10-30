@@ -14,19 +14,15 @@ public class RocketEntity extends DynamicCompositeEntity {
     public RocketEntity(Coordinate2D initialLocation, HAN_Menace hanMenace) {
         super(initialLocation);
         this.hanMenace = hanMenace;
-        move();
-    }
-
-    public void move(){
         setMotion(2, Direction.DOWN);
     }
 
     @Override
     protected void setupEntities() {
-        var RocketHitbox = new RocketEntityDamage(new Coordinate2D(0,0), new Size(width, height),  hanMenace);
-        addEntity(RocketHitbox);
+        var hitbox = new RocketEntityDamage(new Coordinate2D(0,0), new Size(width, height), hanMenace);
+        addEntity(hitbox);
 
-        var RocketEntityAppearance = new RocketEntityAppearance(new Coordinate2D(0,0), new Size(width, height));
-        addEntity(RocketEntityAppearance);
+        var appearance = new RocketEntityAppearance(new Coordinate2D(0,0), new Size(width, height));
+        addEntity(appearance);
     }
 }

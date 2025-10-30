@@ -3,19 +3,30 @@ package nl.han.student.HJMPoelen.scenes;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.Boss;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyMovementBoundyHitbox;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketEntity;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.Coin;
-import nl.han.student.HJMPoelen.entities.StaticEntities.Hitbox;
+import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
+import com.github.hanyaeger.api.entities.impl.TextEntity;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+import java.util.Random;
+
 
 public class GameScene extends DynamicScene{
     protected HAN_Menace hanMenace;
+    private long lastRocketSpawn = 0;
+    private Random random = new Random();
 
     public GameScene(HAN_Menace hanMenace){
         this.hanMenace = hanMenace;
@@ -57,17 +68,59 @@ public class GameScene extends DynamicScene{
         );
         addEntity(titelText);
 
+        ScoreText scoreText = new ScoreText(new Coordinate2D(20, 20));
+        ScoreManager.setScoreText(scoreText);
+        addEntity(scoreText);
 
-        ///moving entities
+
         Player player = new Player(new Coordinate2D(getWidth()/7, layer1Y), new Size(30, 30), hanMenace);
         addEntity(player);
 
-        EnemyEntity enemy = new EnemyEntity(new Coordinate2D(getWidth()/7 * 4, layer1Y), hanMenace);
-        addEntity(enemy);
+        EnemyEntity enemy1 = new EnemyEntity(new Coordinate2D(getWidth() / 7 * 4, layer1Y - 30), hanMenace);
+        addEntity(enemy1);
+
+        EnemyEntity enemy2 = new EnemyEntity(new Coordinate2D(getWidth() / 3 * 2, layer2Y - 30), hanMenace);
+        addEntity(enemy2);
+
+        EnemyEntity enemy3 = new EnemyEntity(new Coordinate2D(getWidth() / 5 * 3, layer3Y - 30), hanMenace);
+        addEntity(enemy3);
+
+        EnemyEntity enemy4 = new EnemyEntity(new Coordinate2D(getWidth() / 7 * 5, layer4Y - 30), hanMenace);
+        addEntity(enemy4);
+
+        Boss boss = new Boss(
+                new Coordinate2D(getWidth() / 2 - 25, layer4Y - 80),
+                new Size(50, 50),
+                hanMenace
+        );
+        addEntity(boss);
+
 
         RocketEntity rocket1 = new RocketEntity(new Coordinate2D(getWidth()/2, 0), hanMenace);
         addEntity(rocket1);
         addCoins(layer1Y, layer2Y, layer3Y, layer4Y, layer0y);
+
+
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+                if (now - lastRocketSpawn > 1_000_000_000L) { // elke ~1 seconde
+                    double playerX = player.getAnchorLocation().getX();
+                    double spawnX = playerX - 50 + random.nextDouble() * 100;
+                    spawnX = Math.max(0, Math.min(spawnX, getWidth()));
+                    RocketEntity rocket = new RocketEntity(new Coordinate2D(spawnX, 0), hanMenace);
+                    addEntity(rocket);
+                    lastRocketSpawn = now;
+                }
+            }
+        }.start();
+
+        scoreText.setFill(Color.WHITE);
+        scoreText.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        addEntity(scoreText);
+
     }
 
     private void addCoins(double layer1Y, double layer2Y, double layer3Y, double layer4Y, double groundY) {
@@ -93,6 +146,9 @@ public class GameScene extends DynamicScene{
                 new Size(getWidth() - (gapX + gapWidth), platformThickness)
         );
         addEntity(rightPlat);
+
+        var scoreText = new ScoreText(new Coordinate2D(20, 20));
+        addEntity(scoreText);
 
         EnemyMovementBoundyHitbox enemyMovementBoundyHitbox = new EnemyMovementBoundyHitbox(new Coordinate2D(gapX, platformY-platformThickness*3), new Size(gapWidth, platformThickness*4));
         addEntity(enemyMovementBoundyHitbox);

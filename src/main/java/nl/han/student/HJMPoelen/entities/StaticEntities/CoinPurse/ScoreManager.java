@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class ScoreManager {
     public static int score;
+    protected static ScoreText scoreText;
     private static ArrayList<Integer> highscores = new ArrayList<>();
 
     public static void addPoints(int points) {
@@ -34,4 +35,9 @@ public class ScoreManager {
     public static void clearHighscores() {
         highscores.clear();
     }
+
+    public static void setScoreText(ScoreText scoreText) {
+        ScoreManager.scoreText.refresh();
+    }
 }
+

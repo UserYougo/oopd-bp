@@ -9,6 +9,7 @@ import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicEllipseEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
@@ -67,7 +68,7 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
 
                 if (playerBottom <= platformTop + 10) {
                     setAnchorLocationY(platformTop - getHeight());
-                    setSpeed(0); // dit zorgt dat de speler niet door een platform valt
+                    setSpeed(0);
                     isOnGround = true;
                 }
             }
