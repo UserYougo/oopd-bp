@@ -9,17 +9,16 @@ import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicEllipseEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
-import nl.han.student.HJMPoelen.entities.base.TestEntities.TestPlatform;
 
 import java.util.List;
 import java.util.Set;
 
-public class Player extends DynamicEllipseEntity implements SceneBorderTouchingWatcher, KeyListener, Newtonian, Collider, Collided {
+public class Player extends DynamicEllipseEntity
+        implements SceneBorderTouchingWatcher, KeyListener, Newtonian, Collider, Collided {
 
     private final HAN_Menace hanMenace;
     private boolean isOnGround = false;
@@ -28,33 +27,48 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
         super(initialPosition, size);
         this.hanMenace = hanMenace;
         setFill(Color.LIGHTGREEN);
-        setGravityConstant(0.2);
-
-        // de speler vertraagt steeds op platform, ik kom er maar niet uit.
-        setFrictionConstant(0.01);
-
+        setGravityConstant(0.3);
         setGravityDirection(360);
+        setFrictionConstant(0);
     }
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
 
+        double moveSpeed = isOnGround ? 2.0 : 0.8;
+
         if (pressedKeys.contains(KeyCode.A)) {
-            addToMotion(0.3, 270d);
+            addToMotion(moveSpeed, 270d);
         } else if (pressedKeys.contains(KeyCode.D)) {
-            addToMotion(0.3, 90d);
+            addToMotion(moveSpeed, 90d);
         }
 
         if (pressedKeys.contains(KeyCode.W) && isOnGround) {
-            setMotion(8, 180d);
+            setMotion(10, 180d);
             isOnGround = false;
         }
     }
 
     @Override
     public void notifyBoundaryTouching(SceneBorder border) {
-        if (border == SceneBorder.BOTTOM) {
-            hanMenace.setActiveScene(2);
+        switch (border) {
+            case TOP -> {
+                setAnchorLocationY(0);
+                setSpeed(0);
+            }
+            case BOTTOM -> {
+                setAnchorLocationY(getSceneHeight() - getHeight());
+                setSpeed(0);
+                isOnGround = true;
+            }
+            case LEFT -> {
+                setAnchorLocationX(0);
+                setSpeed(0);
+            }
+            case RIGHT -> {
+                setAnchorLocationX(getSceneWidth() - getWidth());
+                setSpeed(0);
+            }
         }
     }
 
@@ -62,7 +76,6 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
     public void onCollision(List<Collider> colliders) {
         for (Collider collider : colliders) {
             if (collider instanceof Platform platform) {
-
                 double playerBottom = getAnchorLocation().getY() + getHeight();
                 double platformTop = platform.getAnchorLocation().getY();
 
@@ -72,6 +85,10 @@ public class Player extends DynamicEllipseEntity implements SceneBorderTouchingW
                     isOnGround = true;
                 }
             }
+        }
+
+        if (isOnGround && getSpeed() < 0.5) {
+            setSpeed(0);
         }
     }
 }

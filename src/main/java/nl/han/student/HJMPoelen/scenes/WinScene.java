@@ -1,17 +1,17 @@
 package nl.han.student.HJMPoelen.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
 
 import java.util.ArrayList;
 
 public class WinScene extends StaticScene {
-
     private final HAN_Menace hanMenace;
 
     public WinScene(HAN_Menace hanMenace) {
@@ -21,43 +21,51 @@ public class WinScene extends StaticScene {
     @Override
     public void setupScene() {
         setBackgroundColor(Color.LIGHTGREEN);
+        ScoreManager.saveHighscore();
     }
 
     @Override
     public void setupEntities() {
-        int currentScore = ScoreManager.getScore();
-        ArrayList<Integer> highscores = ScoreManager.getHighscores();
-
-        var title = new HeaderText(new Coordinate2D(getWidth() / 2, getHeight() / 5), "You Win!");
+        var title = new HeaderText(
+                new Coordinate2D(getWidth() * 0.42, getHeight() * 0.15),
+                "You Win!"
+        );
         addEntity(title);
 
-        var scoreText = new HeaderText(new Coordinate2D(getWidth() / 2, getHeight() / 3),
-                "Your score: " + currentScore);
-        addEntity(scoreText);
+        var currentScoreText = new TextEntity(
+                new Coordinate2D(getWidth() * 0.3, getHeight() * 0.25),
+                "Score: " + ScoreManager.getScore()
+        );
+        currentScoreText.setFill(Color.BLACK);
+        addEntity(currentScoreText);
 
-        StringBuilder hsText = new StringBuilder("Top 5 Highscores:\n");
+        ArrayList<Integer> highscores = ScoreManager.getHighscores();
+        double startY = getHeight() * 0.35;
+        double spacing = getHeight() * 0.05;
+
         for (int i = 0; i < highscores.size(); i++) {
-            hsText.append(i + 1).append(". ").append(highscores.get(i)).append("\n");
+            var text = new TextEntity(
+                    new Coordinate2D(getWidth() * 0.3, startY + i * spacing),
+                    (i + 1) + ". " + highscores.get(i)
+            );
+            text.setFill(Color.BLACK);
+            addEntity(text);
         }
 
-        var hsEntity = new HeaderText(new Coordinate2D(getWidth() / 2, getHeight() / 2.2), hsText.toString());
-        hsEntity.setFill(Color.DARKBLUE);
-        addEntity(hsEntity);
-
         var restartButton = new Button(
-                new Coordinate2D(getWidth() / 2, getHeight() / 1.3),
+                new Coordinate2D(getWidth() * 0.45, getHeight() * 0.75),
                 hanMenace,
-                "Play Again",
-                HAN_Menace.GAMESCENE
+                "restart?",
+                1
         );
         addEntity(restartButton);
 
-        var homeButton = new Button(
-                new Coordinate2D(getWidth() / 2, getHeight() / 1.15),
+        var backButton = new Button(
+                new Coordinate2D(getWidth() * 0.45, getHeight() * 0.85),
                 hanMenace,
-                "Back to Home",
-                HAN_Menace.TITELSCENE
+                "Home",
+                0
         );
-        addEntity(homeButton);
+        addEntity(backButton);
     }
 }

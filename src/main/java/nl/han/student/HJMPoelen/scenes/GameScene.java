@@ -11,21 +11,18 @@ import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyMovementBoundyHitbox;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketEntity;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.Coin;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
-import com.github.hanyaeger.api.entities.impl.TextEntity;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.util.Random;
 
 
 public class GameScene extends DynamicScene{
     protected HAN_Menace hanMenace;
-    private long lastRocketSpawn = 0;
+    private long lastRocketSpawnTime = 0;
+    private final long rocketSpawnIntervalMs = 3000;
+
     private Random random = new Random();
 
     public GameScene(HAN_Menace hanMenace){
@@ -68,11 +65,6 @@ public class GameScene extends DynamicScene{
         );
         addEntity(titelText);
 
-        ScoreText scoreText = new ScoreText(new Coordinate2D(20, 20));
-        ScoreManager.setScoreText(scoreText);
-        addEntity(scoreText);
-
-
         Player player = new Player(new Coordinate2D(getWidth()/7, layer1Y), new Size(30, 30), hanMenace);
         addEntity(player);
 
@@ -105,22 +97,17 @@ public class GameScene extends DynamicScene{
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-
-                if (now - lastRocketSpawn > 1_000_000_000L) { // elke ~1 seconde
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastRocketSpawnTime > rocketSpawnIntervalMs) {
                     double playerX = player.getAnchorLocation().getX();
                     double spawnX = playerX - 50 + random.nextDouble() * 100;
                     spawnX = Math.max(0, Math.min(spawnX, getWidth()));
-                    RocketEntity rocket = new RocketEntity(new Coordinate2D(spawnX, 0), hanMenace);
-                    addEntity(rocket);
-                    lastRocketSpawn = now;
+                    addEntity(new RocketEntity(new Coordinate2D(spawnX, 0), hanMenace));
+                    lastRocketSpawnTime = currentTime;
                 }
             }
+
         }.start();
-
-        scoreText.setFill(Color.WHITE);
-        scoreText.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-        addEntity(scoreText);
-
     }
 
     private void addCoins(double layer1Y, double layer2Y, double layer3Y, double layer4Y, double groundY) {
@@ -146,9 +133,6 @@ public class GameScene extends DynamicScene{
                 new Size(getWidth() - (gapX + gapWidth), platformThickness)
         );
         addEntity(rightPlat);
-
-        var scoreText = new ScoreText(new Coordinate2D(20, 20));
-        addEntity(scoreText);
 
         EnemyMovementBoundyHitbox enemyMovementBoundyHitbox = new EnemyMovementBoundyHitbox(new Coordinate2D(gapX, platformY-platformThickness*3), new Size(gapWidth, platformThickness*4));
         addEntity(enemyMovementBoundyHitbox);

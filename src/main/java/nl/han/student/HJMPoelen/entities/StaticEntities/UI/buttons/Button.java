@@ -3,6 +3,7 @@ package nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons;
 import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.input.MouseButton;
 import nl.han.student.HJMPoelen.HAN_Menace;
+import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.baseButton.BaseButton;
 
 
@@ -19,6 +20,7 @@ public class Button extends BaseButton {
     }
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
+        ScoreManager.reset();
         hanMenace.setActiveScene(setScene);
     }
 

@@ -7,7 +7,6 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
-import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.StartButton;
 
 public class TitelScene extends StaticScene {
      protected HAN_Menace hanMenace;

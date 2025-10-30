@@ -26,7 +26,7 @@ public class Boss extends DynamicRectangleEntity implements Collider, Collided {
         for (Collider collider : colliders) {
             if (collider.getClass().getSimpleName().equals("Player")) {
                 ScoreManager.saveHighscore();
-                hanMenace.setActiveScene(HAN_Menace.LOSTSCENE);
+                hanMenace.setActiveScene(HAN_Menace.WINSCENE);
             }
         }
     }

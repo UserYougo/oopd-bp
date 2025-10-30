@@ -4,6 +4,7 @@ module HanMenace {
     requires javafx.graphics;
     requires jdk.unsupported;
     requires com.google.guice;
+//    requires HanMenace;
 
     exports nl.han.student.HJMPoelen;
 }
