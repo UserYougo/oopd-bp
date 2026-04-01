@@ -20,45 +20,48 @@ public class LostScene extends StaticScene {
 
     @Override
     public void setupScene() {
-        setBackgroundColor(Color.LIGHTGRAY);
+        setBackgroundColor(Color.LIGHTGRAY);  // was LIGHTGREEN
         ScoreManager.saveHighscore();
     }
 
     @Override
     public void setupEntities() {
         var title = new HeaderText(
-                new Coordinate2D(getWidth() * 0.4, getHeight() * 0.15),
-                "You Lost!"
+                new Coordinate2D(getWidth() / 2, getHeight() * 0.15),
+                "DEAD!"
         );
         addEntity(title);
 
-        ArrayList<Integer> highscores = ScoreManager.getHighscores();
-        double startY = getHeight() * 0.3;
-        double spacing = getHeight() * 0.05;
+        var currentScoreText = new TextEntity(
+                new Coordinate2D(getWidth() * 0.35, getHeight() * 0.38),
+                "Score:    " + ScoreManager.getScore() + " EC"
+        );
+        currentScoreText.setFill(Color.BLACK);
+        addEntity(currentScoreText);
 
-        for (int i = 0; i < highscores.size(); i++) {
-            var text = new TextEntity(
-                    new Coordinate2D(getWidth() * 0.3, startY + i * spacing),
-                    (i + 1) + ". " + highscores.get(i)
-            );
-            text.setFill(Color.BLACK);
-            addEntity(text);
-        }
-
+        // Side-by-side buttons (same Y, different X)
         var restartButton = new Button(
-                new Coordinate2D(getWidth() * 0.45, getHeight() * 0.75),
+                new Coordinate2D(getWidth() * 0.3, getHeight() * 0.65),
                 hanMenace,
-                "restart?",
+                "Restart",
                 1
         );
         addEntity(restartButton);
 
-        var backButton = new Button(
-                new Coordinate2D(getWidth() * 0.45, getHeight() * 0.85),
+        var exitButton = new Button(
+                new Coordinate2D(getWidth() * 0.6, getHeight() * 0.65),
                 hanMenace,
-                "Home",
+                "Exit",
                 0
         );
-        addEntity(backButton);
+        addEntity(exitButton);
+
+        // Branding at bottom
+        var branding = new HeaderText(
+                new Coordinate2D(getWidth() / 2, getHeight() * 0.85),
+                "HAN_ Menace"
+        );
+        branding.setFill(Color.web("#E8005A"));  // pink/magenta from screenshot
+        addEntity(branding);
     }
 }

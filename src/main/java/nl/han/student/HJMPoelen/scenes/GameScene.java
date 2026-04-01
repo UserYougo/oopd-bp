@@ -146,7 +146,7 @@ public class GameScene extends DynamicScene{
     }
 
     public void createSplitPlatforms(double platformY, double gapX, double gapWidth, double platformThickness) {
-        /// Function to make platform layer with a gap in between a boundrybox for the enemies so they dont walk off the platform.
+        /// Function to make platform layer with a gap in between.
 
         Platform leftPlat = new Platform(
                 new Coordinate2D(0, platformY),
