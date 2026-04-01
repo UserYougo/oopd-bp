@@ -9,6 +9,7 @@ import com.github.hanyaeger.api.entities.impl.DynamicTextEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Hitbox;
+import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 
 import java.util.List;
 
@@ -18,7 +19,6 @@ public class EnemyEntity extends DynamicCompositeEntity implements Collider, Col
     private double height = 30;
 
     private Direction currentDirection = Direction.LEFT;
-    private double distanceMoved = 0;
 
     public EnemyEntity(Coordinate2D initialPosition, HAN_Menace app) {
         super(initialPosition);
@@ -41,16 +41,26 @@ public class EnemyEntity extends DynamicCompositeEntity implements Collider, Col
 
     @Override
     public void notifyBoundaryTouching(final SceneBorder border) {
-        changeDirection(180); //change direction when hitting border of screen
+        changeDirection(180);
+        currentDirection = (currentDirection == Direction.LEFT) ? Direction.RIGHT : Direction.LEFT;
     }
-
 
     @Override
     public void onCollision(List<Collider> list) {
         for (Collider collider : list) {
-            if(collider instanceof EnemyMovementBoundyHitbox){
-                changeDirection(180); //change direction when hitting the EnemyMovementBoundyHitbox
-                /// Could probably be implemented better with collision check with the platform, and when not colliding anymore turn around?
+            if (collider instanceof Platform platform) {
+                double platformLeft  = platform.getAnchorLocation().getX();
+                double platformRight = platformLeft + platform.getWidth();
+                double enemyLeft  = getAnchorLocation().getX() - width / 2;
+                double enemyRight = getAnchorLocation().getX() + width / 2;
+
+                if (currentDirection == Direction.LEFT && enemyLeft <= platformLeft + 5) {
+                    changeDirection(180);
+                    currentDirection = Direction.RIGHT;
+                } else if (currentDirection == Direction.RIGHT && enemyRight >= platformRight - 5) {
+                    changeDirection(180);
+                    currentDirection = Direction.LEFT;
+                }
             }
         }
     }

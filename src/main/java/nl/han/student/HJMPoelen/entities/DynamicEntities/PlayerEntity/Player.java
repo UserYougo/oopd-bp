@@ -20,6 +20,9 @@ import java.util.Set;
 public class Player extends DynamicEllipseEntity
         implements SceneBorderTouchingWatcher, KeyListener, Newtonian, Collider, Collided {
 
+    private static final double GROUND_SPEED = 1.0;
+    private static final double AIR_SPEED = 0.95;
+
     private final HAN_Menace hanMenace;
     private boolean isOnGround = false;
 
@@ -29,12 +32,12 @@ public class Player extends DynamicEllipseEntity
         setFill(Color.LIGHTGREEN);
         setGravityConstant(0.2);
         setGravityDirection(360);
-        setFrictionConstant(0.05);
+        setFrictionConstant(0.10);
     }
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        double moveSpeed = isOnGround ? 2.0 : 0.8;
+        double moveSpeed = isOnGround ? GROUND_SPEED : AIR_SPEED;
 
         if (pressedKeys.contains(KeyCode.A)) {
             addToMotion(moveSpeed, 270d);
@@ -43,7 +46,7 @@ public class Player extends DynamicEllipseEntity
         }
 
         if (pressedKeys.contains(KeyCode.W) && isOnGround) {
-            setMotion(10, 180d);
+            addToMotion(15, 180d);
             isOnGround = false;
         }
     }
@@ -71,19 +74,27 @@ public class Player extends DynamicEllipseEntity
         for (Collider collider : colliders) {
             if (collider instanceof Platform platform) {
                 double playerBottom = getAnchorLocation().getY() + getHeight();
-                double playerTop    = getAnchorLocation().getY();
-                double platformTop    = platform.getAnchorLocation().getY();
+                double playerTop = getAnchorLocation().getY();
+                double platformTop = platform.getAnchorLocation().getY();
                 double platformBottom = platform.getAnchorLocation().getY() + platform.getHeight();
+
+                double playerRight = getAnchorLocation().getX() + getWidth();
+                double playerLeft = getAnchorLocation().getX();
+                double platformLeft = platform.getAnchorLocation().getX();
+                double platformRight = platform.getAnchorLocation().getX() + platform.getWidth();
 
                 if (playerBottom <= platformTop + getHeight() * 0.3) { //Top Platform
                     setAnchorLocationY(platformTop - getHeight());
-                    setSpeed(0);
                     isOnGround = true;
-                }
-
-                if (playerTop >= platformBottom - getHeight() * 0.3) { //Bottom Platform
+                } else if (playerRight <= platformLeft + getWidth() * 0.3) { //Left side Platform
+                    setAnchorLocationX(platformLeft - getWidth());
+                    addToMotion(1, 270d);
+                } else if (playerLeft >= platformRight - getWidth() * 0.3) { //Right side Platform
+                    setAnchorLocationX(platformRight);
+                    addToMotion(1, 90d);
+                } else if (playerTop >= platformBottom - getHeight() * 0.3) { //Bottom Platform
                     setAnchorLocationY(platformBottom);
-                    setSpeed(0);
+                    addToMotion(2, 360);
                 }
             }
         }
