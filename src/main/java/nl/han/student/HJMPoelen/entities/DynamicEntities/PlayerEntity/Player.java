@@ -24,15 +24,39 @@ public class Player extends DynamicEllipseEntity
     private static final double AIR_SPEED = 0.95;
 
     private final HAN_Menace hanMenace;
+    private final Coordinate2D startPosition;
     private boolean isOnGround = false;
+    private int lives = 3;
+    private LivesListener livesListener;
 
     public Player(Coordinate2D initialPosition, Size size, HAN_Menace hanMenace) {
         super(initialPosition, size);
         this.hanMenace = hanMenace;
+        this.startPosition = initialPosition;
         setFill(Color.LIGHTGREEN);
         setGravityConstant(0.2);
         setGravityDirection(360);
         setFrictionConstant(0.10);
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLivesListener(LivesListener listener) {
+        this.livesListener = listener;
+    }
+
+    public void loseLife() {
+        lives--;
+        if (livesListener != null) livesListener.onLivesChanged(lives);
+        if (lives <= 0) {
+            hanMenace.setActiveScene(HAN_Menace.LOSTSCENE);
+        } else {
+            setAnchorLocation(startPosition);
+            setSpeed(0);
+            isOnGround = false;
+        }
     }
 
     @Override

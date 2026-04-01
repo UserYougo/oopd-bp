@@ -29,12 +29,15 @@ public class EnemyEntity extends DynamicCompositeEntity implements Collider, Col
 
     @Override
     protected void setupEntities() {
+        //hitbox of the entity
         EnemyEntityDamage enemyEntityDamage = new EnemyEntityDamage(new Coordinate2D(0,0), new Size(width, height), app);
         addEntity(enemyEntityDamage);
 
+        //Looks of the entity
         EnemyEntityAppearance enemyEntityAppearance = new EnemyEntityAppearance(new Coordinate2D(0,0), new Size(width,height) );
         addEntity(enemyEntityAppearance);
 
+        //Text of entity, should be last to show / draw on top.
         EnemyEntityText enemyEntityText = new EnemyEntityText(new Coordinate2D(width/2,height/2), "Enemy");
         addEntity(enemyEntityText);
     }

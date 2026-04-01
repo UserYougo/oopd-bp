@@ -7,11 +7,14 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.Boss;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.GhostEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketEntity;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.Coin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.UI.LivesDisplay;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.UI.ScreenFlash;
 
 import java.util.Random;
 
@@ -72,11 +75,28 @@ public class GameScene extends DynamicScene{
         );
         addEntity(boss);
 
-        ///  Moveable entities
+
+
+        ///  Dynamic (Moveable) entities
         Player player = new Player(new Coordinate2D(getWidth()/7, getHeight() - 50 ), new Size(30, 30), hanMenace);
+
+        LivesDisplay livesDisplay = new LivesDisplay(new Coordinate2D(10, 10), player.getLives());
+        addEntity(livesDisplay);
+
+        ScreenFlash screenFlash = new ScreenFlash(new Coordinate2D(0, 0), new Size(getWidth(), getHeight()));
+        addEntity(screenFlash);
+
+        player.setLivesListener(lives -> {
+            livesDisplay.updateLives(lives);
+            screenFlash.flash();
+        });
+
         addEntity(player);
 
         addCoins(layer1Y, layer2Y, layer3Y, layer4Y, layer0y);
+
+        GhostEntity ghost = new GhostEntity(new Coordinate2D(getWidth() / 2 + 50, layer5Y - 80), hanMenace);
+        addEntity(ghost);
 
         //Enemies
         EnemyEntity enemy1 = new EnemyEntity(new Coordinate2D(getWidth() / 7 * 4, layer1Y), hanMenace);
@@ -91,7 +111,7 @@ public class GameScene extends DynamicScene{
         EnemyEntity enemy4 = new EnemyEntity(new Coordinate2D(getWidth() / 7 * 3, layer4Y), hanMenace);
         addEntity(enemy4);
 
-        RocketEntity rocket1 = new RocketEntity(new Coordinate2D(getWidth()/2, 0), hanMenace);
+        RocketEntity rocket1 = new RocketEntity(new Coordinate2D(getWidth()/2, 0));
         addEntity(rocket1);
 
 
@@ -106,7 +126,7 @@ public class GameScene extends DynamicScene{
                     double playerX = player.getAnchorLocation().getX();
                     double spawnX = playerX - 50 + random.nextDouble() * 100;
                     spawnX = Math.max(0, Math.min(spawnX, getWidth()));
-                    addEntity(new RocketEntity(new Coordinate2D(spawnX, 0), hanMenace));
+                    addEntity(new RocketEntity(new Coordinate2D(spawnX, 0)));
                     lastRocketSpawnTime = currentTime;
                 }
             }
@@ -126,7 +146,7 @@ public class GameScene extends DynamicScene{
     }
 
     public void createSplitPlatforms(double platformY, double gapX, double gapWidth, double platformThickness) {
-        /// Function to make platform layer with a gap in between a boundrybox for the enemies so they dont walk off the platform.
+        /// Function to make platform layer with a gap in between.
 
         Platform leftPlat = new Platform(
                 new Coordinate2D(0, platformY),

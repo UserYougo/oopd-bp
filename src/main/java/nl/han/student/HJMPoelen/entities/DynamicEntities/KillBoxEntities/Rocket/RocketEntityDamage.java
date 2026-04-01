@@ -19,8 +19,8 @@ import java.util.List;
 
 public class RocketEntityDamage extends DynamicKillBox {
     //Separate class so if we want to change the behavior we can
-    protected RocketEntityDamage(Coordinate2D initialPosition, Size size, HAN_Menace app) {
-        super(initialPosition, size, app);
+    protected RocketEntityDamage(Coordinate2D initialPosition, Size size) {
+        super(initialPosition, size);
         setFill(Color.TRANSPARENT);
     }
 }

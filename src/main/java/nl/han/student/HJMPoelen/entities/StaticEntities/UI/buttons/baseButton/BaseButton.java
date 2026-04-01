@@ -27,8 +27,17 @@ public abstract class BaseButton extends CompositeEntity implements MouseEnterLi
         this.text = text;
         this.width = size.width();
         this.height = size.height();
+        setViewOrder(5);
+    }
 
-        setViewOrder(5); //FROM Yeager Tutorial, Maybe not needed\
+    public BaseButton(Coordinate2D initialLocation, String text, Size size, Color backgroundColor, Color textColor) {
+        super(initialLocation);
+        this.text = text;
+        this.width = size.width();
+        this.height = size.height();
+        this.defaultBackgroundColor = backgroundColor;
+        this.defaultTextColor = textColor;
+        setViewOrder(5);
     }
 
     public BaseButton(Coordinate2D initialLocation, String text) {
