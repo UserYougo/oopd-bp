@@ -1,9 +1,8 @@
-package nl.han.student.HJMPoelen.entities.base.buttons;
+package nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.baseButton;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
 import com.github.hanyaeger.api.userinput.MouseEnterListener;
 import com.github.hanyaeger.api.userinput.MouseExitListener;
@@ -28,14 +27,23 @@ public abstract class BaseButton extends CompositeEntity implements MouseEnterLi
         this.text = text;
         this.width = size.width();
         this.height = size.height();
+        setViewOrder(5);
+    }
 
-        setViewOrder(5); //FROM Yeager Tutorial, Maybe not needed\
+    public BaseButton(Coordinate2D initialLocation, String text, Size size, Color backgroundColor, Color textColor) {
+        super(initialLocation);
+        this.text = text;
+        this.width = size.width();
+        this.height = size.height();
+        this.defaultBackgroundColor = backgroundColor;
+        this.defaultTextColor = textColor;
+        setViewOrder(5);
     }
 
     public BaseButton(Coordinate2D initialLocation, String text) {
         super(initialLocation);
         this.text = text;
-        this.width = 100;
+        this.width = 100; // moet nog ff kijken of dit 200 of iets moet zijn, of dat je het in de constructor zet van childs
         this.height = 50;
 
         setViewOrder(5);

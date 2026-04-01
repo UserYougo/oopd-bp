@@ -1,4 +1,4 @@
-package nl.han.student.HJMPoelen.entities.base;
+package nl.han.student.HJMPoelen.entities.StaticEntities.UI;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
