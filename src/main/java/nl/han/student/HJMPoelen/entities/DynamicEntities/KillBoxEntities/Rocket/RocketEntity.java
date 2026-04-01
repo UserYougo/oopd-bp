@@ -13,7 +13,7 @@ public class RocketEntity extends DynamicCompositeEntity implements SceneBorderT
     private double width = 8;
     private double height = 15;
 
-    public RocketEntity(Coordinate2D initialLocation, HAN_Menace hanMenace) {
+    public RocketEntity(Coordinate2D initialLocation) {
         super(initialLocation);
         this.hanMenace = hanMenace;
         setMotion(2, Direction.DOWN);
@@ -21,7 +21,7 @@ public class RocketEntity extends DynamicCompositeEntity implements SceneBorderT
 
     @Override
     protected void setupEntities() {
-        var hitbox = new RocketEntityDamage(new Coordinate2D(0,0), new Size(width, height), hanMenace);
+        var hitbox = new RocketEntityDamage(new Coordinate2D(0,0), new Size(width, height));
         addEntity(hitbox);
 
         var appearance = new RocketEntityAppearance(new Coordinate2D(0,0), new Size(width, height));
