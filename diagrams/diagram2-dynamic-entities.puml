@@ -1,0 +1,157 @@
+@startuml DynamicEntities
+
+skinparam classAttributeIconSize 0
+
+class "DynamicRectangleEntity" <<Engine>>
+class "DynamicEllipseEntity" <<Engine>>
+class "DynamicCompositeEntity" <<Engine>>
+class "DynamicTextEntity" <<Engine>>
+class "Timer" <<Engine>>
+class "EntitySpawner" <<Engine>>
+interface "Collider" <<Engine>>
+interface "Collided" <<Engine>>
+interface "SceneBorderTouchingWatcher" <<Engine>>
+interface "TimerContainer" <<Engine>>
+interface "KeyListener" <<Engine>>
+interface "Newtonian" <<Engine>>
+
+interface LivesListener {
+    +onLivesChanged(int) : void
+}
+
+class DynamicHitbox {
+    #setHitBoxWidth(double) : void
+    #setHitBoxHeight(double) : void
+}
+
+class DynamicDamageBox {
+    +onCollision(List) : void
+}
+
+class Boss {
+    -hanMenace : HAN_Menace
+    +onCollision(List) : void
+}
+
+class Player {
+    -{static} GROUND_SPEED : double
+    -{static} AIR_SPEED : double
+    -lives : int
+    -isOnGround : boolean
+    -isSlowed : boolean
+    -livesListener : LivesListener
+    +getLives() : int
+    +loseLife() : void
+    +gainLife() : void
+    +flash(Color) : void
+    +slow() : void
+    +setLivesListener(LivesListener) : void
+    +updateEffects() : void
+}
+
+class PlayerEffectTimer {
+    -player : Player
+    +onAnimationUpdate(long) : void
+}
+
+class EnemyEntity {
+    -currentDirection : Direction
+    +setupEntities() : void
+    +notifyBoundaryTouching(SceneBorder) : void
+    +onCollision(List) : void
+}
+
+class EnemyEntityAppearance {
+}
+
+class EnemyEntityText {
+}
+
+class GhostEntity {
+    +setupEntities() : void
+    +notifyBoundaryTouching(SceneBorder) : void
+    +onCollision(List) : void
+}
+
+class GhostEntityAppearance {
+}
+
+class RocketEntity {
+    +setupEntities() : void
+    +notifyBoundaryTouching(SceneBorder) : void
+}
+
+class RocketEntityAppearance {
+}
+
+class RocketSpawner {
+    -player : Player
+    -sceneWidth : double
+    +spawnEntities() : void
+}
+
+class LivesDisplay {
+    +updateLives(int) : void
+}
+
+class ScoreDisplay {
+    +updateScore(int) : void
+}
+
+class ScreenFlash {
+    -flashing : boolean
+    +flash() : void
+    +updateFlash() : void
+}
+
+class ScreenFlashTimer {
+    -screenFlash : ScreenFlash
+    +onAnimationUpdate(long) : void
+}
+
+' Inheritance
+DynamicRectangleEntity <|-- DynamicHitbox
+DynamicHitbox <|-- DynamicDamageBox
+DynamicRectangleEntity <|-- Boss
+DynamicRectangleEntity <|-- ScreenFlash
+DynamicEllipseEntity <|-- Player
+DynamicEllipseEntity <|-- EnemyEntityAppearance
+DynamicEllipseEntity <|-- GhostEntityAppearance
+DynamicTextEntity <|-- LivesDisplay
+DynamicTextEntity <|-- ScoreDisplay
+DynamicTextEntity <|-- EnemyEntityText
+DynamicCompositeEntity <|-- EnemyEntity
+DynamicCompositeEntity <|-- GhostEntity
+DynamicCompositeEntity <|-- RocketEntity
+DynamicRectangleEntity <|-- RocketEntityAppearance
+Timer <|-- PlayerEffectTimer
+Timer <|-- ScreenFlashTimer
+EntitySpawner <|-- RocketSpawner
+
+' Interface implementations
+Collider <|.. DynamicHitbox
+Collided <|.. DynamicDamageBox
+Collider <|.. Player
+Collided <|.. Player
+TimerContainer <|.. Player
+KeyListener <|.. Player
+Newtonian <|.. Player
+SceneBorderTouchingWatcher <|.. Player
+Collider <|.. Boss
+Collided <|.. Boss
+Collider <|.. EnemyEntity
+Collided <|.. EnemyEntity
+SceneBorderTouchingWatcher <|.. EnemyEntity
+Collider <|.. GhostEntity
+Collided <|.. GhostEntity
+SceneBorderTouchingWatcher <|.. GhostEntity
+SceneBorderTouchingWatcher <|.. RocketEntity
+TimerContainer <|.. ScreenFlash
+
+' Associations
+Player --> LivesListener : notifies
+PlayerEffectTimer --> Player : updates
+ScreenFlashTimer --> ScreenFlash : updates
+RocketSpawner --> Player : tracks
+
+@enduml

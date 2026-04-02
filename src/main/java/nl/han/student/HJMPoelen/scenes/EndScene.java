@@ -40,14 +40,13 @@ public abstract class EndScene extends StaticScene {
         addEntity(new Button(
                 new Coordinate2D(getWidth() * 0.3, getHeight() * 0.65),
                 hanMenace, "Retry", HAN_Menace.GAMESCENE,
-                Color.color(0.89, 0, 0.33),
+                HAN_Menace.HAN_COLOR,
                 Color.WHITE
         ));
 
         addEntity(new ExitButton(new Coordinate2D(getWidth() * 0.6, getHeight() * 0.65)));
 
         var branding = new HeaderText(new Coordinate2D(getWidth() / 2, getHeight() * 0.85), "HAN_ Menace");
-        branding.setFill(Color.color(0.89, 0, 0.33));
         addEntity(branding);
     }
 }

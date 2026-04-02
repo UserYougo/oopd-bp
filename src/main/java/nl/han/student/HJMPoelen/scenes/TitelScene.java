@@ -34,7 +34,7 @@ public class TitelScene extends StaticScene {
                 hanMenace,
                 "Start",
                 HAN_Menace.GAMESCENE,
-                Color.color(0.89, 0, 0.33),
+                HAN_Menace.HAN_COLOR,
                 Color.WHITE
         );
         addEntity(startButton);

@@ -16,7 +16,7 @@ public class HeaderText extends TextEntity {
         super(initialLocation, inputText);
         this.hanMenace = hanMenace;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
-        setFill(Color.color(0.89,0,0.33));
+        setFill(HAN_Menace.HAN_COLOR);
         setStrokeColor(Color.color(0,0,0));
         setFont(Font.font("Roboto", FontWeight.BOLD, 50));
     }
