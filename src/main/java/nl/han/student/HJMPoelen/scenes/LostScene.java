@@ -8,6 +8,7 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.ExitButton;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class LostScene extends StaticScene {
 
     @Override
     public void setupScene() {
-        setBackgroundColor(Color.LIGHTGRAY);  // was LIGHTGREEN
+        setBackgroundColor(Color.LIGHTGRAY);
         ScoreManager.saveHighscore();
     }
 
@@ -39,20 +40,19 @@ public class LostScene extends StaticScene {
         currentScoreText.setFill(Color.BLACK);
         addEntity(currentScoreText);
 
-        // Side-by-side buttons (same Y, different X)
+        // Side-by-side buttons
         var restartButton = new Button(
                 new Coordinate2D(getWidth() * 0.3, getHeight() * 0.65),
                 hanMenace,
-                "Restart",
-                1
+                "Retry",
+                HAN_Menace.GAMESCENE,
+                Color.color(0.89, 0, 0.33),
+                Color.WHITE
         );
         addEntity(restartButton);
 
-        var exitButton = new Button(
-                new Coordinate2D(getWidth() * 0.6, getHeight() * 0.65),
-                hanMenace,
-                "Exit",
-                0
+        var exitButton = new ExitButton(
+                new Coordinate2D(getWidth() * 0.6, getHeight() * 0.65)
         );
         addEntity(exitButton);
 
@@ -61,7 +61,7 @@ public class LostScene extends StaticScene {
                 new Coordinate2D(getWidth() / 2, getHeight() * 0.85),
                 "HAN_ Menace"
         );
-        branding.setFill(Color.web("#E8005A"));  // pink/magenta from screenshot
+        branding.setFill(Color.web("#E8005A"));
         addEntity(branding);
     }
 }

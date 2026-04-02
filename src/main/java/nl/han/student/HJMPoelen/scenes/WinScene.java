@@ -8,6 +8,7 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
+import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.ExitButton;
 
 public class WinScene extends StaticScene {
     private final HAN_Menace hanMenace;
@@ -42,15 +43,12 @@ public class WinScene extends StaticScene {
                 new Coordinate2D(getWidth() * 0.3, getHeight() * 0.65),
                 hanMenace,
                 "Restart",
-                1
+                HAN_Menace.GAMESCENE
         );
         addEntity(restartButton);
 
-        var exitButton = new Button(
-                new Coordinate2D(getWidth() * 0.6, getHeight() * 0.65),
-                hanMenace,
-                "Exit",
-                0
+        var exitButton = new ExitButton(
+                new Coordinate2D(getWidth() * 0.6, getHeight() * 0.65)
         );
         addEntity(exitButton);
 

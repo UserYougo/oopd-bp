@@ -8,7 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class LivesDisplay extends DynamicTextEntity {
-
+    /// Shows lives given to constructor and able to update it later.
     public LivesDisplay(Coordinate2D initialLocation, int lives) {
         super(initialLocation);
         setAnchorPoint(AnchorPoint.TOP_LEFT);
