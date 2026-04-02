@@ -6,10 +6,13 @@ import java.util.function.IntConsumer;
 
 /**
  * Global Score
- * Score is intentionally static because it represents a single shared game state
- * that must be accessible across multiple scenes (GameScene, WinScene, LostScene)
+ * Score is intentionally static because it represents a single score per game
+ * that must be accessible across multiple scenes (GameScene, WinScene, LostScene) and mutltiple classes
  * without passing references through the entire object graph.
  * This is a deliberate design choice
+ * Otherwise we would have to pass ScoreManager through every constructor eg HAN_menace > Gamescreen > Item > Coin
+ * This would be a lot of unnecessary
+ * We added a reset to it clears between game attempts.
  */
 
 

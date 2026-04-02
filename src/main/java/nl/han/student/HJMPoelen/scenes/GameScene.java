@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.Boss;
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.GhostEntity;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Ghost.GhostEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
 
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketSpawner;
@@ -124,13 +124,13 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
         addEntity(boss);
 
         //Enemies
-        addEntity(new GhostEntity(new Coordinate2D(getWidth() / 2 + 50, layer5Y - 80), hanMenace));
-        addEntity(new GhostEntity(new Coordinate2D(getWidth() / 2, layer0y), hanMenace));
+        addEntity(new GhostEntity(new Coordinate2D(getWidth() / 2 + 50, layer5Y - 80)));
+        addEntity(new GhostEntity(new Coordinate2D(getWidth() / 2, layer0y)));
 
-        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 4, layer1Y), hanMenace));
-        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 3 * 2, layer2Y), hanMenace));
-        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 5 * 3, layer3Y), hanMenace));
-        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 3, layer4Y), hanMenace));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 4, layer1Y)));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 3 * 2, layer2Y)));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 5 * 3, layer3Y)));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 3, layer4Y)));
     }
 
     @Override
@@ -158,4 +158,3 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
 
     }
 }
-

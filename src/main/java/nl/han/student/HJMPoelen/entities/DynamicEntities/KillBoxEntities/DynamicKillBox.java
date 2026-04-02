@@ -12,10 +12,9 @@ import java.util.List;
 
 /// Dynamic hitbox to kill / damage if player collids with it game gets set to Endscreen.
 public class DynamicKillBox extends DynamicHitbox implements Collided {
-    protected DynamicKillBox(Coordinate2D initialPosition, Size size) {
+    public DynamicKillBox(Coordinate2D initialPosition, Size size) {
         super(initialPosition, size);
-        setFill(Color.ORANGE);
-        setOpacity(0.01);
+        setFill(Color.TRANSPARENT);
     }
 
     @Override
