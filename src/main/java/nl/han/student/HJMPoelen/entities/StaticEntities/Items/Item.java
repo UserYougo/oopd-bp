@@ -12,15 +12,16 @@ public abstract class Item extends CircleEntity implements Collided {
 
     protected Item(Coordinate2D initialLocation) {
         super(initialLocation);
+
     }
 
-    public abstract void onPickup();
+    public abstract void onPickup(Player player);
 
     @Override
     public void onCollision(List<Collider> colliders) {
         for (Collider collider : colliders) {
-            if (collider instanceof Player) {
-                onPickup();
+            if (collider instanceof Player player) {
+                onPickup(player);
             }
         }
     }
