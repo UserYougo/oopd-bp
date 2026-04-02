@@ -5,8 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.DynamicKillBox;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.DynamicDamageBox;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntityText;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class GhostEntity extends DynamicCompositeEntity implements Collider, Col
 
     @Override
     protected void setupEntities() {
-        addEntity(new DynamicKillBox(new Coordinate2D(0, 0), new Size(width, height)));
+        addEntity(new DynamicDamageBox(new Coordinate2D(0, 0), new Size(width, height)));
         addEntity(new GhostEntityAppearance(new Coordinate2D(0, 0), new Size(width, height)));
         addEntity(new EnemyEntityText(new Coordinate2D(width/2,height/2), "Ghost"));
     }

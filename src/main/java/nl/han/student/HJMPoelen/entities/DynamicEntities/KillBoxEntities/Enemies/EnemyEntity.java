@@ -4,12 +4,8 @@ import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.*;
-import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
-import com.github.hanyaeger.api.entities.impl.DynamicTextEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.DynamicKillBox;
-import nl.han.student.HJMPoelen.entities.StaticEntities.Hitbox;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.DynamicDamageBox;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 
 import java.util.List;
@@ -29,7 +25,7 @@ public class EnemyEntity extends DynamicCompositeEntity implements Collider, Col
     @Override
     protected void setupEntities() {
         //hitbox of the entity
-        addEntity(new DynamicKillBox(new Coordinate2D(0,0), new Size(width, height)));
+        addEntity(new DynamicDamageBox(new Coordinate2D(0,0), new Size(width, height)));
 
         //Looks of the entity
         addEntity(new EnemyEntityAppearance(new Coordinate2D(0,0), new Size(width,height) ));

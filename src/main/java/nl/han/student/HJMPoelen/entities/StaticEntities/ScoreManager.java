@@ -17,8 +17,8 @@ import java.util.function.IntConsumer;
 
 
 public class ScoreManager {
-    public static int score;
-    private static ArrayList<Integer> highscores = new ArrayList<>();
+    private static int score; //Can be private nowhere used directly only with get, add and remove
+    private final static ArrayList<Integer> highscores = new ArrayList<>(); //final to prevent making a new list, static because should always be the same across screens
     private static java.util.function.IntConsumer scoreListener;
 
     public static void setScoreListener(IntConsumer listener) {

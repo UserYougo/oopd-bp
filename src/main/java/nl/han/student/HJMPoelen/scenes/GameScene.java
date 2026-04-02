@@ -139,7 +139,6 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
         addEntitySpawner(new RocketSpawner(2000, player, getWidth())); //2 seconds between spawning of coins.
     }
 
-
     /// FUNCTIONS
     public void createSplitPlatforms(double platformY, double gapX, double gapWidth, double platformThickness) {
         /// Function to make platform layer with a gap in between.
@@ -155,6 +154,5 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
                 new Size(getWidth() - (gapX + gapWidth), platformThickness)
         );
         addEntity(rightPlat);
-
     }
 }

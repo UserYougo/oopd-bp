@@ -9,13 +9,11 @@ import javafx.scene.text.FontWeight;
 import nl.han.student.HJMPoelen.HAN_Menace;
 
 
-/// Text for header in Title- and Endscreen.
+/// Text for header in Title- and Endscreens.
 public class HeaderText extends TextEntity {
     private HAN_Menace hanMenace;
-    private String text;
     public HeaderText(Coordinate2D initialLocation, String inputText) {
         super(initialLocation, inputText);
-        this.text = inputText;
         this.hanMenace = hanMenace;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
         setFill(Color.color(0.89,0,0.33));
