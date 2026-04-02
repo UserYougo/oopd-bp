@@ -94,34 +94,40 @@ public class Player extends DynamicEllipseEntity
 
     @Override
     public void onCollision(List<Collider> colliders) {
-        isOnGround = false; // reset here instead of update
+        isOnGround = false;
         for (Collider collider : colliders) {
             if (collider instanceof Platform platform) {
-                double playerBottom = getAnchorLocation().getY() + getHeight();
-                double playerTop = getAnchorLocation().getY();
-                double platformTop = platform.getAnchorLocation().getY();
-                double platformBottom = platform.getAnchorLocation().getY() + platform.getHeight();
+                double playerTop    = getAnchorLocation().getY();
+                double playerBottom = playerTop + getHeight();
+                double playerLeft   = getAnchorLocation().getX();
+                double playerRight  = playerLeft + getWidth();
 
-                double playerRight = getAnchorLocation().getX() + getWidth();
-                double playerLeft = getAnchorLocation().getX();
-                double platformLeft = platform.getAnchorLocation().getX();
-                double platformRight = platform.getAnchorLocation().getX() + platform.getWidth();
+                double platformTop    = platform.getAnchorLocation().getY();
+                double platformBottom = platformTop + platform.getHeight();
+                double platformLeft   = platform.getAnchorLocation().getX();
+                double platformRight  = platformLeft + platform.getWidth();
 
-                if (playerBottom <= platformTop + getHeight() * 0.3) { //Top Platform
-                    setAnchorLocationY(platformTop - getHeight());
-                    isOnGround = true;
-                } else if (playerRight <= platformLeft + getWidth() * 0.3) { //Left side Platform
-                    setAnchorLocationX(platformLeft - getWidth());
-                    addToMotion(1, 270d);
-                } else if (playerLeft >= platformRight - getWidth() * 0.3) { //Right side Platform
-                    setAnchorLocationX(platformRight);
-                    addToMotion(1, 90d);
-                } else if (playerTop >= platformBottom - getHeight() * 0.3) { //Bottom Platform
-                    setAnchorLocationY(platformBottom);
-                    addToMotion(2, 360);
+                double xOverlap = Math.min(playerRight, platformRight) - Math.max(playerLeft, platformLeft);
+                double yOverlap = Math.min(playerBottom, platformBottom) - Math.max(playerTop, platformTop);
+
+                if (yOverlap < xOverlap) {
+                    // Vertical collision ]
+                    if (playerTop + getHeight() / 2 < platformTop + platform.getHeight() / 2) {
+                        setAnchorLocationY(platformTop - getHeight());
+                        isOnGround = true;
+                    } else {
+                        setAnchorLocationY(platformBottom);
+                        addToMotion(2, 360);
+                    }
+                } else {
+                    // Horizontal collision
+                    if (playerLeft + getWidth() / 2 < platformLeft + platform.getWidth() / 2) {
+                        setAnchorLocationX(platformLeft - getWidth());
+                    } else {
+                        setAnchorLocationX(platformRight);
+                    }
                 }
             }
         }
-
     }
 }
