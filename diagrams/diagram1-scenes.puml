@@ -1,0 +1,72 @@
+@startuml Scenes
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+class "YaegerGame" <<Engine>> {
+}
+
+class "StaticScene" <<Engine>> {
+}
+
+class "DynamicScene" <<Engine>> {
+}
+
+interface "EntitySpawnerContainer" <<Engine>> {
+}
+
+class HAN_Menace {
+    +{static} HAN_COLOR : Color
+    +{static} TITELSCENE : int
+    +{static} GAMESCENE : int
+    +{static} LOSTSCENE : int
+    +{static} WINSCENE : int
+    +setupGame() : void
+    +setupScenes() : void
+}
+
+class TitelScene {
+    #hanMenace : HAN_Menace
+    +setupScene() : void
+    +setupEntities() : void
+}
+
+class GameScene {
+    #hanMenace : HAN_Menace
+    -player : Player
+    +setupScene() : void
+    +setupEntities() : void
+    +setupEntitySpawners() : void
+    +createSplitPlatforms() : void
+}
+
+abstract class EndScene {
+    #hanMenace : HAN_Menace
+    +setupScene() : void
+    +setupEntities() : void
+    #{abstract} getTitle() : String
+}
+
+class WinScene {
+    +getTitle() : String
+}
+
+class LostScene {
+    +getTitle() : String
+}
+
+YaegerGame <|-- HAN_Menace
+StaticScene <|-- TitelScene
+DynamicScene <|-- GameScene
+EntitySpawnerContainer <|.. GameScene
+StaticScene <|-- EndScene
+EndScene <|-- WinScene
+EndScene <|-- LostScene
+
+HAN_Menace --> TitelScene : creates
+HAN_Menace --> GameScene : creates
+HAN_Menace --> WinScene : creates
+HAN_Menace --> LostScene : creates
+GameScene --> "Player" : creates
+
+@enduml

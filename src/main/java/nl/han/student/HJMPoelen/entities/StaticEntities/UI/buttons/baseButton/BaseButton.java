@@ -43,7 +43,7 @@ public abstract class BaseButton extends CompositeEntity implements MouseEnterLi
     public BaseButton(Coordinate2D initialLocation, String text) {
         super(initialLocation);
         this.text = text;
-        this.width = 100; // moet nog ff kijken of dit 200 of iets moet zijn, of dat je het in de constructor zet van childs
+        this.width = 100;
         this.height = 50;
 
         setViewOrder(5);

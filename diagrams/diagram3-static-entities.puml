@@ -1,0 +1,128 @@
+@startuml StaticEntities
+
+skinparam classAttributeIconSize 0
+
+class "RectangleEntity" <<Engine>>
+class "CircleEntity" <<Engine>>
+class "TextEntity" <<Engine>>
+class "CompositeEntity" <<Engine>>
+interface "Collider" <<Engine>>
+interface "Collided" <<Engine>>
+interface "MouseEnterListener" <<Engine>>
+interface "MouseExitListener" <<Engine>>
+interface "MouseButtonPressedListener" <<Engine>>
+
+class Hitbox {
+    #setHitBoxWidth(double) : void
+    #setHitBoxHeight(double) : void
+}
+
+class Platform {
+}
+
+class ScoreManager {
+    -{static} score : int
+    -{static} final highscores : ArrayList<Integer>
+    -{static} scoreListener : IntConsumer
+    +{static} addPoints(int) : void
+    +{static} removePoints(int) : void
+    +{static} getScore() : int
+    +{static} reset() : void
+    +{static} saveHighscore() : void
+    +{static} setScoreListener(IntConsumer) : void
+}
+
+abstract class Item {
+    +{abstract} onPickup(Player) : void
+    +onCollision(List) : void
+}
+
+class Coin {
+    -value : int
+    +onPickup(Player) : void
+}
+
+class BadCoin {
+    -value : int
+    +onPickup(Player) : void
+}
+
+class HealthPotion {
+    +onPickup(Player) : void
+}
+
+class PoisonPotion {
+    +onPickup(Player) : void
+}
+
+class HeaderText {
+}
+
+abstract class BaseButton {
+    -width : double
+    -height : double
+    -text : String
+    -baseButtonText : BaseButtonText
+    +setupEntities() : void
+    +onMouseEntered() : void
+    +onMouseExited() : void
+}
+
+class BaseButtonBox {
+}
+
+class BaseButtonText {
+    -textColor : Color
+    +onMouseEntered() : void
+    +onMouseExited() : void
+}
+
+class Button {
+    -hanMenace : HAN_Menace
+    -setScene : int
+    +onMouseButtonPressed() : void
+}
+
+class ExitButton {
+    +onMouseButtonPressed() : void
+}
+
+' Inheritance
+RectangleEntity <|-- Hitbox
+Hitbox <|-- Platform
+CircleEntity <|-- Item
+Item <|-- Coin
+Item <|-- BadCoin
+Item <|-- HealthPotion
+Item <|-- PoisonPotion
+TextEntity <|-- HeaderText
+CompositeEntity <|-- BaseButton
+BaseButton <|-- Button
+BaseButton <|-- ExitButton
+RectangleEntity <|-- BaseButtonBox
+TextEntity <|-- BaseButtonText
+
+' Interface implementations
+Collider <|.. Hitbox
+Collided <|.. Item
+MouseEnterListener <|.. BaseButton
+MouseExitListener <|.. BaseButton
+MouseButtonPressedListener <|.. BaseButton
+
+' Associations
+BaseButton --> BaseButtonText : contains
+BaseButton --> BaseButtonBox : contains
+
+' ScoreManager usage
+Coin --> ScoreManager : addPoints()
+BadCoin --> ScoreManager : removePoints()
+Button --> ScoreManager : reset()
+
+note bottom of ScoreManager
+  Also used by (other diagrams):
+  Boss: addPoints(), saveHighscore()
+  EndScene: getScore(), saveHighscore()
+  GameScene: getScore(), setScoreListener()
+end note
+
+@enduml

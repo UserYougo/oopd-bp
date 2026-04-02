@@ -8,7 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class EnemyEntityText extends DynamicTextEntity {
-    protected EnemyEntityText(Coordinate2D initialPosition, String text) {
+    public EnemyEntityText(Coordinate2D initialPosition, String text) {
         super(initialPosition, text);
         setFill(Color.WHITE);
         setFont(Font.font("Roboto", FontWeight.BOLD, 8));

@@ -9,11 +9,13 @@ import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.baseButton.Ba
 public class ExitButton extends BaseButton {
 
     public ExitButton(Coordinate2D initialLocation) {
-        super(initialLocation, "Exit", new Size(80, 40), Color.BLACK, Color.WHITE);
+        super(initialLocation, "Exit",
+                new Size(100, 50), Color.BLACK, Color.WHITE);
     }
 
     @Override
-    public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
+    public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D)
+    {
         System.exit(0);
     }
 }

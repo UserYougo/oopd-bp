@@ -11,11 +11,10 @@ import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
 import java.util.List;
 
 /// Dynamic hitbox to kill / damage if player collids with it game gets set to Endscreen.
-public class DynamicKillBox extends DynamicHitbox implements Collided {
-    protected DynamicKillBox(Coordinate2D initialPosition, Size size) {
+public class DynamicDamageBox extends DynamicHitbox implements Collided {
+    public DynamicDamageBox(Coordinate2D initialPosition, Size size) {
         super(initialPosition, size);
-        setFill(Color.ORANGE);
-        setOpacity(0.01);
+        setFill(Color.TRANSPARENT); //so you dont see the hitbox
     }
 
     @Override

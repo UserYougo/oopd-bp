@@ -5,10 +5,11 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.DynamicEllipseEntity;
 import javafx.scene.paint.Color;
+import nl.han.student.HJMPoelen.HAN_Menace;
 
 public class EnemyEntityAppearance extends DynamicEllipseEntity {
     protected EnemyEntityAppearance(Coordinate2D initialLocation, Size size) {
         super(initialLocation, size);
-        this.setFill(Color.color(0.89,0,0.33)); //beautiful HAN colors, we could add this as a final global variable
+        this.setFill(HAN_Menace.HAN_COLOR);
     }
 }

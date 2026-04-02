@@ -7,17 +7,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class LivesDisplay extends DynamicTextEntity {
-    /// Shows lives given to constructor and able to update it later.
-    public LivesDisplay(Coordinate2D initialLocation, int lives) {
+public class ScoreDisplay extends DynamicTextEntity {
+    public ScoreDisplay(Coordinate2D initialLocation, int score) {
         super(initialLocation);
         setAnchorPoint(AnchorPoint.TOP_LEFT);
         setFill(Color.WHITE);
         setFont(Font.font("Roboto", FontWeight.BOLD, 20));
-        updateLives(lives);
+        updateScore(score);
     }
 
-    public void updateLives(int lives) {
-        setText("Lives: " + lives);
+    public void updateScore(int score) {
+        setText("Score: " + score);
     }
 }

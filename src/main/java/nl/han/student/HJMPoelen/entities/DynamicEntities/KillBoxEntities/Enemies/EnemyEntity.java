@@ -4,25 +4,20 @@ import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.*;
-import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
-import com.github.hanyaeger.api.entities.impl.DynamicTextEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.StaticEntities.Hitbox;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.DynamicDamageBox;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 
 import java.util.List;
 
 public class EnemyEntity extends DynamicCompositeEntity implements Collider, Collided ,SceneBorderTouchingWatcher {
-    private final HAN_Menace app;
     private double width  = 30;
     private double height = 30;
 
     private Direction currentDirection = Direction.LEFT;
 
-    public EnemyEntity(Coordinate2D initialPosition, HAN_Menace app) {
+    public EnemyEntity(Coordinate2D initialPosition) {
         super(initialPosition);
-        this.app = app;
         setMotion(3, Direction.LEFT);
         setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
     }
@@ -30,16 +25,13 @@ public class EnemyEntity extends DynamicCompositeEntity implements Collider, Col
     @Override
     protected void setupEntities() {
         //hitbox of the entity
-        EnemyEntityDamage enemyEntityDamage = new EnemyEntityDamage(new Coordinate2D(0,0), new Size(width, height), app);
-        addEntity(enemyEntityDamage);
+        addEntity(new DynamicDamageBox(new Coordinate2D(0,0), new Size(width, height)));
 
         //Looks of the entity
-        EnemyEntityAppearance enemyEntityAppearance = new EnemyEntityAppearance(new Coordinate2D(0,0), new Size(width,height) );
-        addEntity(enemyEntityAppearance);
+        addEntity(new EnemyEntityAppearance(new Coordinate2D(0,0), new Size(width,height) ));
 
         //Text of entity, should be last to show / draw on top.
-        EnemyEntityText enemyEntityText = new EnemyEntityText(new Coordinate2D(width/2,height/2), "Enemy");
-        addEntity(enemyEntityText);
+        addEntity(new EnemyEntityText(new Coordinate2D(width/2,height/2), "Enemy"));
     }
 
     @Override
