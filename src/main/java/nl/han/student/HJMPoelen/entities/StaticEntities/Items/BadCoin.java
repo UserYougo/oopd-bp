@@ -10,7 +10,7 @@ public class BadCoin extends Item{
         public BadCoin(Coordinate2D initialLocation){
             super(initialLocation);
             setRadius(10);
-            setFill(Color.PALEGOLDENROD);
+            setFill(Color.PURPLE);
         }
 
         @Override
