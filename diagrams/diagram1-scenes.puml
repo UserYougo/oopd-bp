@@ -67,5 +67,6 @@ HAN_Menace --> TitelScene : creates
 HAN_Menace --> GameScene : creates
 HAN_Menace --> WinScene : creates
 HAN_Menace --> LostScene : creates
+GameScene --> "Player" : creates
 
 @enduml

@@ -8,12 +8,15 @@ class "DynamicCompositeEntity" <<Engine>>
 class "DynamicTextEntity" <<Engine>>
 class "Timer" <<Engine>>
 class "EntitySpawner" <<Engine>>
-interface "Collider" <<Engine>>
-interface "Collided" <<Engine>>
-interface "SceneBorderTouchingWatcher" <<Engine>>
 interface "TimerContainer" <<Engine>>
 interface "KeyListener" <<Engine>>
 interface "Newtonian" <<Engine>>
+
+together {
+    interface "Collider" <<Engine>>
+    interface "Collided" <<Engine>>
+    interface "SceneBorderTouchingWatcher" <<Engine>>
+}
 
 interface LivesListener {
     +onLivesChanged(int) : void
@@ -128,30 +131,46 @@ Timer <|-- PlayerEffectTimer
 Timer <|-- ScreenFlashTimer
 EntitySpawner <|-- RocketSpawner
 
-' Interface implementations
-Collider <|.. DynamicHitbox
-Collided <|.. DynamicDamageBox
-Collider <|.. Player
-Collided <|.. Player
+' Interface implementations (top-side interfaces)
 TimerContainer <|.. Player
 KeyListener <|.. Player
 Newtonian <|.. Player
-SceneBorderTouchingWatcher <|.. Player
-Collider <|.. Boss
-Collided <|.. Boss
-Collider <|.. EnemyEntity
-Collided <|.. EnemyEntity
-SceneBorderTouchingWatcher <|.. EnemyEntity
-Collider <|.. GhostEntity
-Collided <|.. GhostEntity
-SceneBorderTouchingWatcher <|.. GhostEntity
-SceneBorderTouchingWatcher <|.. RocketEntity
 TimerContainer <|.. ScreenFlash
+
+' Interface implementations (bottom-side interfaces)
+Player .down.|> Collider
+Player .down.|> Collided
+Player .down.|> SceneBorderTouchingWatcher
+Boss .down.|> Collider
+Boss .down.|> Collided
+DynamicHitbox .down.|> Collider
+DynamicDamageBox .down.|> Collided
+EnemyEntity .down.|> Collider
+EnemyEntity .down.|> Collided
+EnemyEntity .down.|> SceneBorderTouchingWatcher
+GhostEntity .down.|> Collider
+GhostEntity .down.|> Collided
+GhostEntity .down.|> SceneBorderTouchingWatcher
+RocketEntity .down.|> SceneBorderTouchingWatcher
+
+' Hidden arrows to push interfaces to bottom
+Player -[hidden]down-> Collider
+Player -[hidden]down-> Collided
+Player -[hidden]down-> SceneBorderTouchingWatcher
 
 ' Associations
 Player --> LivesListener : notifies
 PlayerEffectTimer --> Player : updates
 ScreenFlashTimer --> ScreenFlash : updates
 RocketSpawner --> Player : tracks
+
+' Composite contents
+legend right
+    **Composite Contents**
+    EnemyEntity: DynamicDamageBox, EnemyEntityAppearance, EnemyEntityText
+    GhostEntity: DynamicDamageBox, GhostEntityAppearance, EnemyEntityText
+    RocketEntity: DynamicDamageBox, RocketEntityAppearance
+endlegend
+
 
 @enduml

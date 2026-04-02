@@ -113,4 +113,16 @@ MouseButtonPressedListener <|.. BaseButton
 BaseButton --> BaseButtonText : contains
 BaseButton --> BaseButtonBox : contains
 
+' ScoreManager usage
+Coin --> ScoreManager : addPoints()
+BadCoin --> ScoreManager : removePoints()
+Button --> ScoreManager : reset()
+
+note bottom of ScoreManager
+  Also used by (other diagrams):
+  Boss: addPoints(), saveHighscore()
+  EndScene: getScore(), saveHighscore()
+  GameScene: getScore(), setScoreListener()
+end note
+
 @enduml

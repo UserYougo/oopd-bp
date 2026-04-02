@@ -14,7 +14,7 @@ import java.util.List;
 public class DynamicDamageBox extends DynamicHitbox implements Collided {
     public DynamicDamageBox(Coordinate2D initialPosition, Size size) {
         super(initialPosition, size);
-        setFill(Color.TRANSPARENT);
+        setFill(Color.TRANSPARENT); //so you dont see the hitbox
     }
 
     @Override
