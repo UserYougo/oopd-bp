@@ -12,7 +12,11 @@ public class ScoreManager {
     }
 
     public static void removePoints(int points) {
-        score -= points;
+        if(score - points > 0 ){
+            score -= points;
+        } else {
+            score = 0; //so it doesnt go into the negative points.
+        }
     }
 
     public static int getScore() {
