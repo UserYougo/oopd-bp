@@ -34,6 +34,5 @@ public class ScoreManager {
     public static ArrayList<Integer> getHighscores() {
         return new ArrayList<>(highscores);
     }
-
 }
 

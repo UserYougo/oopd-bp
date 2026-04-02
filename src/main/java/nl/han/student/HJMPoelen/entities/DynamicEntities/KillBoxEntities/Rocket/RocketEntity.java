@@ -10,8 +10,8 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 
 public class RocketEntity extends DynamicCompositeEntity implements SceneBorderTouchingWatcher {
     private HAN_Menace hanMenace;
-    private double width = 8;
-    private double height = 15;
+    private final double width = 8;
+    private final double height = 15;
 
     public RocketEntity(Coordinate2D initialLocation) {
         super(initialLocation);

@@ -5,11 +5,10 @@ import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.entities.StaticEntities.ScoreManager;
 
 public class Coin extends Item {
-    private final int value;
+    private final int value = 100;
 
-    public Coin(Coordinate2D initialLocation, int value) {
+    public Coin(Coordinate2D initialLocation){
         super(initialLocation);
-        this.value = value;
         setRadius(10);
         setFill(Color.PALEGOLDENROD);
     }

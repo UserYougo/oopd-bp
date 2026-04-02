@@ -6,11 +6,12 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.Boss;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.Boss;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.GhostEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
 
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketSpawner;
+import nl.han.student.HJMPoelen.entities.StaticEntities.Items.BadCoin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Items.Coin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
@@ -34,7 +35,7 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
     public void setupEntities() {
         /// ALL PLATFORMS ENEMIES ETC.
 
-        ///Stationary enteties
+        ///Stationary entities
         double platThickness = getHeight()/40;
         double yGapBtwnPlat = getHeight()/7;
         double xGapBtwnPlat = getWidth()/7;
@@ -99,21 +100,22 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
 
     @Override
     public void setupEntitySpawners() {
-    // EntistySpawnerContainer needed to use this setup and adder
+    // EntitySpawnerContainer needed to use this setup and adder
         addEntitySpawner(new RocketSpawner(2000, player, getWidth())); //2 seconds between spawning of coins.
     }
 
 
     /// FUNCTIONS
     private void addCoins(double layer1Y, double layer2Y, double layer3Y, double layer4Y, double groundY) {
-        //Place all coins with the same value.
-        double coinValue = 100;
+        //Place all coins
         double offsetY = 30;
 
-        addEntity(new Coin(new Coordinate2D(getWidth() / 5, layer1Y - offsetY), (int) coinValue));
-        addEntity(new Coin(new Coordinate2D(getWidth() / 2, layer2Y - offsetY), (int) coinValue));
-        addEntity(new Coin(new Coordinate2D(getWidth() / 3, layer3Y - offsetY), (int) coinValue));
-        addEntity(new Coin(new Coordinate2D(getWidth() / 1.3, layer4Y - offsetY), (int) coinValue));
+        addEntity(new Coin(new Coordinate2D(getWidth() / 5, layer1Y - offsetY)));
+        addEntity(new Coin(new Coordinate2D(getWidth() / 2, layer2Y - offsetY)));
+        addEntity(new Coin(new Coordinate2D(getWidth() / 3, layer3Y - offsetY)));
+//        addEntity(new Coin(new Coordinate2D(getWidth() / 1.3, layer4Y - offsetY)));
+
+        addEntity(new BadCoin(new Coordinate2D(getWidth() / 1.3, layer4Y - offsetY)));
 
     }
 

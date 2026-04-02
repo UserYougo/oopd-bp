@@ -1,4 +1,4 @@
-package nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies;
+package nl.han.student.HJMPoelen.entities.DynamicEntities;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;

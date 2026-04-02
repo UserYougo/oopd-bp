@@ -25,4 +25,3 @@ public abstract class Item extends CircleEntity implements Collided {
         }
     }
 }
-
