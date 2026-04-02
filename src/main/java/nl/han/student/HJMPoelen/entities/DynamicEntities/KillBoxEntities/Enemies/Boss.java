@@ -8,7 +8,7 @@ import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.ScoreManager;
 
 import java.util.List;
 
@@ -26,7 +26,9 @@ public class Boss extends DynamicRectangleEntity implements Collider, Collided {
     public void onCollision(List<Collider> colliders) {
         for (Collider collider : colliders) {
             if (collider instanceof Player player) {
+                ScoreManager.addPoints(200);
                 ScoreManager.saveHighscore();
+
                 hanMenace.setActiveScene(HAN_Menace.WINSCENE);
             }
         }

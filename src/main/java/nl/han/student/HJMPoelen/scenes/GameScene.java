@@ -1,30 +1,25 @@
 package nl.han.student.HJMPoelen.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.EntitySpawnerContainer;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.Boss;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.GhostEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketEntity;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.Coin;
+
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketSpawner;
+import nl.han.student.HJMPoelen.entities.StaticEntities.Items.Coin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.UI.LivesDisplay;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.UI.ScreenFlash;
 
-import java.util.Random;
-
-
-public class GameScene extends DynamicScene{
+public class GameScene extends DynamicScene implements EntitySpawnerContainer {
     protected HAN_Menace hanMenace;
-    private long lastRocketSpawnTime = 0;
-    private final long rocketSpawnIntervalMs = 3000;
-
-    private Random random = new Random();
+    private Player player;
 
     public GameScene(HAN_Menace hanMenace){
         this.hanMenace = hanMenace;
@@ -67,6 +62,9 @@ public class GameScene extends DynamicScene{
         createSplitPlatforms(layer5Y, getWidth()/7 * 2, xGapBtwnPlat, platThickness);
 
 
+        ///  Dynamic (Moveable) entities
+        player = new Player(new Coordinate2D(getWidth()/7, getHeight() - 50 ), new Size(30, 30), hanMenace);
+
         //Boss
         Boss boss = new Boss(
                 new Coordinate2D(getWidth() / 2 - 25, layer5Y - 80),
@@ -74,11 +72,6 @@ public class GameScene extends DynamicScene{
                 hanMenace
         );
         addEntity(boss);
-
-
-
-        ///  Dynamic (Moveable) entities
-        Player player = new Player(new Coordinate2D(getWidth()/7, getHeight() - 50 ), new Size(30, 30), hanMenace);
 
         LivesDisplay livesDisplay = new LivesDisplay(new Coordinate2D(10, 10), player.getLives());
         addEntity(livesDisplay);
@@ -95,46 +88,25 @@ public class GameScene extends DynamicScene{
 
         addCoins(layer1Y, layer2Y, layer3Y, layer4Y, layer0y);
 
-        GhostEntity ghost = new GhostEntity(new Coordinate2D(getWidth() / 2 + 50, layer5Y - 80), hanMenace);
-        addEntity(ghost);
-
         //Enemies
-        EnemyEntity enemy1 = new EnemyEntity(new Coordinate2D(getWidth() / 7 * 4, layer1Y), hanMenace);
-        addEntity(enemy1);
+        addEntity(new GhostEntity(new Coordinate2D(getWidth() / 2 + 50, layer5Y - 80), hanMenace));
 
-        EnemyEntity enemy2 = new EnemyEntity(new Coordinate2D(getWidth() / 3 * 2, layer2Y), hanMenace);
-        addEntity(enemy2);
-
-        EnemyEntity enemy3 = new EnemyEntity(new Coordinate2D(getWidth() / 5 * 3, layer3Y), hanMenace);
-        addEntity(enemy3);
-
-        EnemyEntity enemy4 = new EnemyEntity(new Coordinate2D(getWidth() / 7 * 3, layer4Y), hanMenace);
-        addEntity(enemy4);
-
-        RocketEntity rocket1 = new RocketEntity(new Coordinate2D(getWidth()/2, 0));
-        addEntity(rocket1);
-
-
-
-
-
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                long currentTime = System.currentTimeMillis();
-                if (currentTime - lastRocketSpawnTime > rocketSpawnIntervalMs) {
-                    double playerX = player.getAnchorLocation().getX();
-                    double spawnX = playerX - 50 + random.nextDouble() * 100;
-                    spawnX = Math.max(0, Math.min(spawnX, getWidth()));
-                    addEntity(new RocketEntity(new Coordinate2D(spawnX, 0)));
-                    lastRocketSpawnTime = currentTime;
-                }
-            }
-
-        }.start();
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 4, layer1Y), hanMenace));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 3 * 2, layer2Y), hanMenace));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 5 * 3, layer3Y), hanMenace));
+        addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 3, layer4Y), hanMenace));
     }
 
+    @Override
+    public void setupEntitySpawners() {
+    // EntistySpawnerContainer needed to use this setup and adder
+        addEntitySpawner(new RocketSpawner(2000, player, getWidth())); //2 seconds between spawning of coins.
+    }
+
+
+    /// FUNCTIONS
     private void addCoins(double layer1Y, double layer2Y, double layer3Y, double layer4Y, double groundY) {
+        //Place all coins with the same value.
         double coinValue = 100;
         double offsetY = 30;
 

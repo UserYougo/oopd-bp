@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.ExitButton;
@@ -42,8 +42,10 @@ public class WinScene extends StaticScene {
         var restartButton = new Button(
                 new Coordinate2D(getWidth() * 0.3, getHeight() * 0.65),
                 hanMenace,
-                "Restart",
-                HAN_Menace.GAMESCENE
+                "Retry",
+                HAN_Menace.GAMESCENE,
+                Color.color(0.89, 0, 0.33),
+                Color.WHITE
         );
         addEntity(restartButton);
 

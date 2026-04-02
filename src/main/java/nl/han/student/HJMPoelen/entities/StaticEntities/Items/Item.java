@@ -1,37 +1,28 @@
-package nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse;
+package nl.han.student.HJMPoelen.entities.StaticEntities.Items;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.CircleEntity;
-import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.PlayerEntity.Player;
 
 import java.util.List;
 
-public class Coin extends CircleEntity implements Collided {
-    private final int value;
+public abstract class Item extends CircleEntity implements Collided {
 
-    public Coin(Coordinate2D initialLocation, int value) {
+    protected Item(Coordinate2D initialLocation) {
         super(initialLocation);
-        this.value = value;
-        setRadius(10);
-        setFill(Color.PALEGOLDENROD);
     }
 
-    private void addToScore() {
-        ScoreManager.addPoints(value);
-    }
+    public abstract void onPickup();
 
     @Override
     public void onCollision(List<Collider> colliders) {
         for (Collider collider : colliders) {
             if (collider instanceof Player) {
-                addToScore();
-                remove();
-                break;
+                onPickup();
             }
         }
     }
 }
+

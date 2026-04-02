@@ -5,12 +5,10 @@ import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.HeaderText;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.Button;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.ExitButton;
-
-import java.util.ArrayList;
 
 public class LostScene extends StaticScene {
     private final HAN_Menace hanMenace;

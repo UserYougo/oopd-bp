@@ -32,15 +32,13 @@ public class GhostEntity extends DynamicCompositeEntity implements Collider, Col
     @Override
     public void notifyBoundaryTouching(SceneBorder border) {
         switch (border) {
-            case LEFT -> addToMotion(2, Direction.RIGHT);
-            case RIGHT -> addToMotion(2, Direction.LEFT);
-            case TOP -> addToMotion(2, Direction.DOWN);
-            case BOTTOM -> addToMotion(2, Direction.UP);
+            case LEFT, RIGHT -> setMotion(getSpeed(), (360 - getDirection()) % 360);
+            case TOP, BOTTOM -> setMotion(getSpeed(), (540 - getDirection()) % 360);
         }
     }
 
     @Override
     public void onCollision(List<Collider> list) {
-        // Ghost floats freely, ignores platform edges
+        // Ghost floats freely, ignores platforms
     }
 }

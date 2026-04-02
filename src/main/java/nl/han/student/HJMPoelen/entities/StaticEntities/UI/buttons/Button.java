@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.Size;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
-import nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse.ScoreManager;
+import nl.han.student.HJMPoelen.entities.StaticEntities.ScoreManager;
 import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.baseButton.BaseButton;
 
 public class Button extends BaseButton {

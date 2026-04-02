@@ -1,4 +1,4 @@
-package nl.han.student.HJMPoelen.entities.StaticEntities.CoinPurse;
+package nl.han.student.HJMPoelen.entities.StaticEntities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,10 @@ public class ScoreManager {
 
     public static void addPoints(int points) {
         score += points;
+    }
+
+    public static void removePoints(int points) {
+        score -= points;
     }
 
     public static int getScore() {
