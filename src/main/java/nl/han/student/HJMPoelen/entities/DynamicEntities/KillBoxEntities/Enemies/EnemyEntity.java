@@ -1,37 +1,26 @@
 package nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies;
 
-import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.DynamicDamageBox;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.AbstractEnemy;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Platform.Platform;
 
 import java.util.List;
 
-public class EnemyEntity extends DynamicCompositeEntity implements Collider, Collided ,SceneBorderTouchingWatcher {
-    private double width  = 30;
-    private double height = 30;
-
+public class EnemyEntity extends AbstractEnemy {
     private Direction currentDirection = Direction.LEFT;
 
     public EnemyEntity(Coordinate2D initialPosition) {
         super(initialPosition);
         setMotion(3, Direction.LEFT);
-        setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
     }
 
     @Override
-    protected void setupEntities() {
-        //hitbox of the entity
-        addEntity(new DynamicDamageBox(new Coordinate2D(0,0), new Size(width, height)));
-
-        //Looks of the entity
-        addEntity(new EnemyEntityAppearance(new Coordinate2D(0,0), new Size(width,height) ));
-
-        //Text of entity, should be last to show / draw on top.
-        addEntity(new EnemyEntityText(new Coordinate2D(width/2,height/2), "Enemy"));
+    protected void setupAppearance() {
+        addEntity(new EnemyEntityAppearance(new Coordinate2D(0, 0), new Size(width, height)));
+        addEntity(new EnemyEntityText(new Coordinate2D(width / 2, height / 2), "Enemy"));
     }
 
     @Override
