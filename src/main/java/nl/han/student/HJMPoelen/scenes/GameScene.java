@@ -7,10 +7,13 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.Boss;
+import java.util.ArrayList;
+import java.util.List;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Ghost.GhostEntity;
 import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Enemies.EnemyEntity;
 
-import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketSpawner;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketEntity;
+import nl.han.student.HJMPoelen.entities.DynamicEntities.KillBoxEntities.Rocket.RocketPool;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Items.BadCoin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Items.Coin;
 import nl.han.student.HJMPoelen.entities.StaticEntities.Items.HealthPotion;
@@ -25,6 +28,7 @@ import nl.han.student.HJMPoelen.entities.StaticEntities.ScoreManager;
 public class GameScene extends DynamicScene implements EntitySpawnerContainer {
     protected HAN_Menace hanMenace;
     private Player player;
+    private RocketPool rocketPool;
 
     public GameScene(HAN_Menace hanMenace){
         this.hanMenace = hanMenace;
@@ -131,12 +135,19 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
         addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 3 * 2, layer2Y)));
         addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 5 * 3, layer3Y)));
         addEntity(new EnemyEntity(new Coordinate2D(getWidth() / 7 * 3, layer4Y)));
+
+        List<RocketEntity> rockets = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            RocketEntity rocket = new RocketEntity(new Coordinate2D(-999, -999), getWidth());
+            rockets.add(rocket);
+            addEntity(rocket);
+        }
+        this.rocketPool = new RocketPool(2000, rockets, player);
     }
 
     @Override
     public void setupEntitySpawners() {
-    // EntitySpawnerContainer needed to use this setup and adder
-        addEntitySpawner(new RocketSpawner(2000, player, getWidth())); //2 seconds between spawning of coins.
+        addEntitySpawner(rocketPool);
     }
 
     /// FUNCTIONS

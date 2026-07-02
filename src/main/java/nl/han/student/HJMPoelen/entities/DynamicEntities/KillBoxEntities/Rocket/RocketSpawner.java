@@ -23,6 +23,6 @@ public class RocketSpawner extends EntitySpawner {
         double playerX = player.getAnchorLocation().getX();
         double spawnX = playerX - 50 + random.nextDouble() * 100; //sets location -50 to +50 of x of player
         spawnX = Math.max(0, Math.min(spawnX, sceneWidth)); // limits x in screen x
-        spawn(new RocketEntity(new Coordinate2D(spawnX, 0))); //spawns rocket.
+        spawn(new RocketEntity(new Coordinate2D(spawnX, 0), sceneWidth)); //spawns rocket.
     }
 }
