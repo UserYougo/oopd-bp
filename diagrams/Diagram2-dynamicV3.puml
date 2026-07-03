@@ -1,0 +1,183 @@
+@startuml DynamicEntities
+
+skinparam classAttributeIconSize 0
+
+class "DynamicRectangleEntity" <<Engine>>
+class "DynamicEllipseEntity" <<Engine>>
+class "DynamicCompositeEntity" <<Engine>>
+class "DynamicTextEntity" <<Engine>>
+class "Timer" <<Engine>>
+class "EntitySpawner" <<Engine>>
+interface "TimerContainer" <<Engine>>
+interface "KeyListener" <<Engine>>
+interface "Newtonian" <<Engine>>
+
+together {
+    interface "Collider" <<Engine>>
+    interface "Collided" <<Engine>>
+    interface "SceneBorderTouchingWatcher" <<Engine>>
+}
+
+interface LivesListener {
+    +onLivesChanged(int) : void
+}
+
+class DynamicHitbox {
+    #setHitBoxWidth(double) : void
+    #setHitBoxHeight(double) : void
+}
+
+class DynamicDamageBox {
+    +onCollision(List) : void
+}
+
+class Boss {
+    -hanMenace : HAN_Menace
+    +onCollision(List) : void
+}
+
+class Player {
+    -{static} GROUND_SPEED : double
+    -{static} AIR_SPEED : double
+    -lives : int
+    -isOnGround : boolean
+    -isSlowed : boolean
+    -livesListener : LivesListener
+    +getLives() : int
+    +loseLife() : void
+    +gainLife() : void
+    +flash(Color) : void
+    +slow() : void
+    +setLivesListener(LivesListener) : void
+    +updateEffects() : void
+}
+
+class PlayerEffectTimer {
+    -player : Player
+    +onAnimationUpdate(long) : void
+}
+
+abstract class AbstractEnemy {
+    #width : double
+    #height : double
+    #setupEntities() : void
+    #{abstract} setupAppearance() : void
+}
+
+class EnemyEntity {
+    -currentDirection : Direction
+    +setupAppearance() : void
+    +notifyBoundaryTouching(SceneBorder) : void
+    +onCollision(List) : void
+}
+
+class EnemyEntityAppearance {
+}
+
+class EnemyEntityText {
+}
+
+class GhostEntity {
+    +setupAppearance() : void
+    +notifyBoundaryTouching(SceneBorder) : void
+    +onCollision(List) : void
+}
+
+class GhostEntityAppearance {
+}
+
+class RocketEntity {
+    -sceneWidth : double
+    +setupEntities() : void
+    +launch(double) : void
+    +notifyBoundaryTouching(SceneBorder) : void
+}
+
+class RocketEntityAppearance {
+}
+
+class RocketPool {
+    -rockets : List<RocketEntity>
+    -index : int
+    +spawnEntities() : void
+}
+
+class LivesDisplay {
+    +updateLives(int) : void
+}
+
+class ScoreDisplay {
+    +updateScore(int) : void
+}
+
+class ScreenFlash {
+    -flashing : boolean
+    +flash() : void
+    +updateFlash() : void
+}
+
+class ScreenFlashTimer {
+    -screenFlash : ScreenFlash
+    +onAnimationUpdate(long) : void
+}
+
+' Inheritance
+DynamicRectangleEntity <|-- DynamicHitbox
+DynamicHitbox <|-- DynamicDamageBox
+DynamicRectangleEntity <|-- Boss
+DynamicRectangleEntity <|-- ScreenFlash
+DynamicEllipseEntity <|-- Player
+DynamicEllipseEntity <|-- EnemyEntityAppearance
+DynamicEllipseEntity <|-- GhostEntityAppearance
+DynamicTextEntity <|-- LivesDisplay
+DynamicTextEntity <|-- ScoreDisplay
+DynamicTextEntity <|-- EnemyEntityText
+DynamicCompositeEntity <|-- AbstractEnemy
+AbstractEnemy <|-- EnemyEntity
+AbstractEnemy <|-- GhostEntity
+DynamicCompositeEntity <|-- RocketEntity
+DynamicRectangleEntity <|-- RocketEntityAppearance
+Timer <|-- PlayerEffectTimer
+Timer <|-- ScreenFlashTimer
+EntitySpawner <|-- RocketPool
+
+' Interface implementations (top-side interfaces)
+TimerContainer <|.. Player
+KeyListener <|.. Player
+Newtonian <|.. Player
+TimerContainer <|.. ScreenFlash
+
+' Interface implementations (bottom-side interfaces)
+Player .down.|> Collider
+Player .down.|> Collided
+Player .down.|> SceneBorderTouchingWatcher
+Boss .down.|> Collider
+Boss .down.|> Collided
+DynamicHitbox .down.|> Collider
+DynamicDamageBox .down.|> Collided
+AbstractEnemy .down.|> Collider
+AbstractEnemy .down.|> Collided
+AbstractEnemy .down.|> SceneBorderTouchingWatcher
+RocketEntity .down.|> SceneBorderTouchingWatcher
+
+' Hidden arrows to push interfaces to bottom
+Player -[hidden]down-> Collider
+Player -[hidden]down-> Collided
+Player -[hidden]down-> SceneBorderTouchingWatcher
+
+' Associations
+Player --> LivesListener : notifies
+PlayerEffectTimer --> Player : updates
+ScreenFlashTimer --> ScreenFlash : updates
+RocketPool --> Player : tracks
+
+' Composite contents
+legend right
+    **Composite Contents**
+    EnemyEntity: DynamicDamageBox, EnemyEntityAppearance, EnemyEntityText
+    GhostEntity: DynamicDamageBox, GhostEntityAppearance, EnemyEntityText
+    RocketEntity: DynamicDamageBox, RocketEntityAppearance
+endlegend
+
+
+@enduml

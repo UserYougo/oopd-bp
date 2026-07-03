@@ -113,7 +113,7 @@ public class GameScene extends DynamicScene implements EntitySpawnerContainer {
         addEntity(player);
 
         //Scoreboard
-        ScoreDisplay scoreDisplay = new ScoreDisplay(new Coordinate2D(getWidth() - 10, 10), ScoreManager.getScore());
+        ScoreDisplay scoreDisplay = new ScoreDisplay(new Coordinate2D(getWidth() - 100, 10), ScoreManager.getScore());
         addEntity(scoreDisplay);
         ScoreManager.setScoreListener(
                 score -> scoreDisplay.updateScore(score)
