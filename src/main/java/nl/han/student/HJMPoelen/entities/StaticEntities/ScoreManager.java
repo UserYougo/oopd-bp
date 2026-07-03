@@ -2,6 +2,7 @@ package nl.han.student.HJMPoelen.entities.StaticEntities;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.IntConsumer;
 
 /**
@@ -53,5 +54,9 @@ public class ScoreManager {
         if (highscores.size() > 5) {
             highscores.remove(5);
         }
+    }
+
+    public static List<Integer> getHighscores() {
+        return Collections.unmodifiableList(highscores);
     }
 }

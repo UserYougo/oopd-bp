@@ -1,5 +1,6 @@
 package nl.han.student.HJMPoelen.scenes;
 
+import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.StaticScene;
@@ -31,11 +32,31 @@ public abstract class EndScene extends StaticScene {
         addEntity(new HeaderText(new Coordinate2D(getWidth() / 2, getHeight() * 0.15), getTitle()));
 
         var currentScoreText = new TextEntity(
-                new Coordinate2D(getWidth() * 0.35, getHeight() * 0.38),
+                new Coordinate2D(getWidth() / 2, getHeight() * 0.30),
                 "Score:    " + ScoreManager.getScore() + " EC"
         );
+        currentScoreText.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         currentScoreText.setFill(Color.BLACK);
         addEntity(currentScoreText);
+
+        var highscoresHeader = new TextEntity(
+                new Coordinate2D(getWidth() / 2, getHeight() * 0.38),
+                "Top Scores:"
+        );
+        highscoresHeader.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        highscoresHeader.setFill(Color.BLACK);
+        addEntity(highscoresHeader);
+
+        var highscores = ScoreManager.getHighscores();
+        for (int i = 0; i < highscores.size(); i++) {
+            var row = new TextEntity(
+                    new Coordinate2D(getWidth() / 2, getHeight() * (0.43 + i * 0.035)),
+                    (i + 1) + ":  " + highscores.get(i) + " EC"
+            );
+            row.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+            row.setFill(Color.BLACK);
+            addEntity(row);
+        }
 
         addEntity(new Button(
                 new Coordinate2D(getWidth() * 0.3, getHeight() * 0.65),

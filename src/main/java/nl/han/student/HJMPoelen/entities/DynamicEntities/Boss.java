@@ -28,7 +28,6 @@ public class Boss extends DynamicRectangleEntity implements Collider, Collided {
             if (collider instanceof Player player) {
                 ScoreManager.addPoints(player.getLives() * 150); //bonus for each live the player still has
                 ScoreManager.addPoints(200); //point for getting to the boss
-                ScoreManager.saveHighscore();
 
                 hanMenace.setActiveScene(HAN_Menace.WINSCENE);
             }
