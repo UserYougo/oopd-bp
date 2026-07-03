@@ -11,10 +11,8 @@ import nl.han.student.HJMPoelen.HAN_Menace;
 
 /// Text for header in Title- and Endscreens.
 public class HeaderText extends TextEntity {
-    private HAN_Menace hanMenace;
     public HeaderText(Coordinate2D initialLocation, String inputText) {
         super(initialLocation, inputText);
-        this.hanMenace = hanMenace;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
         setFill(HAN_Menace.HAN_COLOR);
         setStrokeColor(Color.color(0,0,0));

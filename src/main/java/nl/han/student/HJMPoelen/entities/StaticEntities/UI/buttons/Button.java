@@ -10,7 +10,6 @@ import nl.han.student.HJMPoelen.entities.StaticEntities.UI.buttons.baseButton.Ba
 
 public class Button extends BaseButton {
     protected HAN_Menace hanMenace;
-    private String text;
     private int setScene;
 
 
@@ -18,14 +17,12 @@ public class Button extends BaseButton {
         super(initialLocation, text);
         this.hanMenace = hanMenace;
         this.setScene = setScene;
-        this.text = text;
     }
 
     public Button(final Coordinate2D initialLocation, final HAN_Menace hanMenace, String text, int setScene, Color backgroundColor, Color textColor) {
         super(initialLocation, text, new Size(100, 50), backgroundColor, textColor);
         this.hanMenace = hanMenace;
         this.setScene = setScene;
-        this.text = text;
     }
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {

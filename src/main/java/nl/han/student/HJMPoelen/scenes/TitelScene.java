@@ -1,7 +1,6 @@
 package nl.han.student.HJMPoelen.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import nl.han.student.HJMPoelen.HAN_Menace;
